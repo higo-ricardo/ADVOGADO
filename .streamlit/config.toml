@@ -4,3 +4,7 @@ backgroundColor    = "#FFFFFF"
 secondaryBackgroundColor = "#F8F9FA"
 textColor          = "#212121"
 font               = "sans serif"
+
+[client]
+# Evita conflito de DOM no Windows durante streaming
+suppressDeprecationWarnings = true

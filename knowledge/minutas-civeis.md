@@ -1,8 +1,16 @@
  
  
----
-### [ARQUIVO: acidente_transito.md]
+#### 2.5 Da Dispensa da Audiência de Conciliação
 
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é de alta complexidade, envolvendo múltiplas partes, sobreposição de direitos e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+---
+
+### 3. DOS FATOS
 # Minuta: Ação de Reparação de Danos — Acidente de Trânsito
 
 ## Código: ATR | CC/2002 (arts. 186, 927) + CTB (Lei 9.503/97)
@@ -79,7 +87,15 @@ integral (art. 927 CC), incluindo materiais, morais e lucros cessantes.
 Aplicável CTB, culpa presumida em acidentes, salvo prova em contrário.
 ```
 
-#### 4.3 DOS DANOS
+#### 4.3 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é de alta complexidade, envolvendo múltiplas partes, sobreposição de direitos e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.4 DOS DANOS
 
 ```
 Danos materiais: reparação do veículo e gastos extras.
@@ -92,13 +108,15 @@ Danos morais: sofrimento psíquico.
 ### 5. DOS PEDIDOS (ESPECÍFICOS)
 
 ```
-E. A condenação do Réu ao pagamento de indenização por danos materiais no valor de R$ [VALOR] ([por extenso]);
+E. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito;
 
-F. A condenação do Réu ao pagamento de indenização por lucros cessantes no valor de R$ [VALOR] ([por extenso]);
+F. A condenação do Réu ao pagamento de indenização por danos materiais no valor de R$ [VALOR] ([por extenso]);
 
-G. A condenação do Réu ao pagamento de indenização por danos morais no valor de R$ [VALOR] ([por extenso]);
+G. A condenação do Réu ao pagamento de indenização por lucros cessantes no valor de R$ [VALOR] ([por extenso]);
 
-H. A concessão da gratuidade de justiça (art. 98, CPC).
+H. A condenação do Réu ao pagamento de indenização por danos morais no valor de R$ [VALOR] ([por extenso]);
+
+I. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -498,6 +516,14 @@ da Lei 8.245/91, com a redação da Lei 12.112/09), sendo, por isso, incluído n
 passivo da demanda.
 ```
 
+#### 2.5 Da Dispensa da Audiência de Conciliação
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é de alta complexidade, envolvendo múltiplas partes, sobreposição de direitos e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
 ---
 
 ### 5. DOS PEDIDOS (ESPECÍFICOS)
@@ -513,7 +539,9 @@ H. A condenação do(a) réu(ré) ao pagamento dos aluguéis e encargos vincendo
 
 I. [Se houver danos ao imóvel:] A condenação do(a) réu(ré) ao pagamento de indenização pelos danos causados ao imóvel, a apurar em liquidação;
 
-J. A concessão da gratuidade de justiça (art. 98, CPC).
+J. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito;
+
+K. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [TOTAL DO DÉBITO] ([por extenso]).
 
@@ -795,6 +823,8 @@ G. A CONDENAÇÃO da parte requerida ao PAGAMENTO de R$ [VALOR] em dobro a títu
 H. A CONDENAÇÃO da parte requerida ao PAGAMENTO de R$ [VALOR DANOS MORAIS] ([por extenso]) a título de danos morais;
 
 I. A concessão da gratuidade de justiça (art. 98, CPC).
+
+J. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito.
 
 Atribui-se à causa o valor de R$ [SOMA TOTAL] ([por extenso]).
 

@@ -1,16 +1,40 @@
+# -*- coding: utf-8 -*-
 """
-app.py — Entry point do Agente Jurídico.
+app.py — Entry point do Agente Juridico.
 Executa: streamlit run app.py
 """
+import sys
+import os
+
+# Ativa UTF-8 antes de qualquer import
+os.environ["PYTHONUTF8"] = "1"
+os.environ["PYTHONIOENCODING"] = "utf-8"
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
+# Força encoding UTF-8 no interpretador (Python < 3.15 compat)
+try:
+    sys.setdefaultencoding = lambda x: None
+except AttributeError:
+    pass
+
+# Importa text_utils PRIMEIRO para interceptar todo texto
+import text_utils
+
 import streamlit as st
 
 st.set_page_config(
-    page_title="Agente Jurídico",
-    page_icon="⚖️",
+    page_title="Agente Juridico",
+    page_icon="",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
 
+# Importa modulos do app
 import state
 from state import Etapa
 from ui.components import cabecalho, barra_progresso
@@ -23,7 +47,7 @@ from ui.pages import (
     render_revisao,
 )
 
-# CSS minimalista
+# CSS minimalista — sem acentos
 st.markdown("""
 <style>
 .stForm { border: none !important; }
@@ -36,7 +60,7 @@ div[data-testid="stVerticalBlock"] > div { gap: 0.5rem; }
 # Inicializa state
 state.init()
 
-# Cabeçalho e progresso
+# Cabecalho e progresso
 cabecalho()
 barra_progresso()
 st.markdown("")

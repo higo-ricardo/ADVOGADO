@@ -254,12 +254,14 @@ Ante o exposto, requer a Vossa Excelência:
 A. [Se liminar:] A concessão de tutela de urgência, suspendendo os efeitos do
    [ato / contrato] impugnado, até o julgamento final da presente ação;
 
-B. A citação de todos os réus para contestar no prazo legal;
+B. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza administrativa do ato impugnado;
 
-C. A intimação do Ministério Público para acompanhar o feito, nos termos do
+C. A citação de todos os réus para contestar no prazo legal;
+
+D. A intimação do Ministério Público para acompanhar o feito, nos termos do
    art. 9º da Lei nº 4.717/1965;
 
-D. Ao final, a procedência total da ação, para:
+E. Ao final, a procedência total da ação, para:
    (i)  Declarar a NULIDADE do [ato / contrato] impugnado;
    (ii) Condenar os réus, solidariamente, ao RESSARCIMENTO INTEGRAL do dano causado
         ao patrimônio público, no valor de R$ [VALOR] ([por extenso]), corrigido
@@ -270,9 +272,9 @@ D. Ao final, a procedência total da ação, para:
    (v)  Condenar os réus ao pagamento de MULTA de [1 a 100 salários mínimos]
         (art. 11, Lei 4.717/65);
 
-E. A condenação dos réus ao pagamento de custas processuais e honorários advocatícios;
+F. A condenação dos réus ao pagamento de custas processuais e honorários advocatícios;
 
-F. A gratuidade de custas para o autor, nos termos do art. 5º, LXXIII, da CF
+G. A gratuidade de custas para o autor, nos termos do art. 5º, LXXIII, da CF
    (o autor da ação popular é isento de custas e ônus da sucumbência, salvo má-fé).
 
 Protesta provar o alegado por todos os meios de prova admitidos em Direito,

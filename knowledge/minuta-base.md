@@ -68,17 +68,27 @@ Art. 186 e 927 CC: responsabilidade por danos morais.
 
 O ônus da prova incumbe ao Autor para fatos constitutivos (art. 373, I CPC), mas inversão possível se demonstrada hipossuficiência (art. 6º, VIII CDC, se aplicável).
 
+#### 2.6 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+
 ---
 
 ### [ARQUIVO: pedidos_comuns.md]
 
 Ante ao exposto, requer a Vossa Excelência:
 
-A. A citação da parte requerida para responder à presente ação no prazo legal, sob pena de confissão quanto à matéria de fato e revelia;
+A. A citação da parte requerida para responder à presente ação no prazo legal, sob pena de confissão quanto à matéria de facto e revelia;
 
 B. A intimação da parte requerida para comparecer à audiência de conciliação e mediação, se designada;
 
 C. O deferimento da inversão do ônus da prova, nos termos do art. 6º, VIII do CDC (para relações de consumo);
+
+D. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário;
+
+E. [pedido específico do caso]
 
 ---
 

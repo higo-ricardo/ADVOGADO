@@ -118,7 +118,23 @@ do imóvel, perda de frutos civis).
 [Se houver urgência específica: desocupação de bem perecível, destruição iminente etc.]
 ```
 
-#### 4.3 DOS FRUTOS E INDENIZAÇÃO
+#### 2.4 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.3 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.4 DOS FRUTOS E INDENIZAÇÃO
 
 ```
 O Réu, ao permanecer no imóvel sem autorização e sem pagar qualquer contraprestação,
@@ -136,11 +152,13 @@ sentença mediante perícia.
 ```
 E. [Se urgência:] A concessão de tutela de urgência, com expedição de mandado de imissão na posse, determinando a desocupação em [PRAZO] dias, sob pena de uso de força policial e multa diária de R$ [VALOR] ([por extenso]);
 
-F. A procedência total do pedido para confirmar a imissão definitiva do Autor na posse plena e exclusiva do imóvel descrito;
+F. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário;
 
-G. A condenação do Réu ao pagamento de indenização pelos frutos civis não percebidos, equivalente ao aluguel do imóvel desde [DATA], a apurar em liquidação de sentença (art. 1.216, CC);
+G. A procedência total do pedido para confirmar a imissão definitiva do Autor na posse plena e exclusiva do imóvel descrito;
 
-H. A concessão da gratuidade de justiça (art. 98, CPC).
+H. A condenação do Réu ao pagamento de indenização pelos frutos civis não percebidos, equivalente ao aluguel do imóvel desde [DATA], a apurar em liquidação de sentença (art. 1.216, CC);
+
+I. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -900,7 +918,15 @@ que ocupa, eis que a herança permanece em estado de indivisão, sem a partilha 
 individualizaria a área de cada herdeiro.
 ```
 
-#### 4.4 DOS FRUTOS E DA INDENIZAÇÃO
+#### 4.5 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.6 DOS FRUTOS E DA INDENIZAÇÃO
 
 ```
 Possuidor de má-fé, o Réu responde pelos frutos percebidos e pelos que por culpa sua
@@ -911,7 +937,15 @@ O valor da indenização pelos frutos civis equivale ao aluguel do imóvel desde
 PERDA DA POSSE] até a efetiva desocupação e restituição.
 ```
 
-#### 4.5 DAS BENFEITORIAS (SE O RÉU AS INVOCAR)
+#### 4.6 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.7 DAS BENFEITORIAS (SE O RÉU AS INVOCAR)
 
 ```
 O Réu, possuidor de má-fé, não tem direito à indenização por benfeitorias, nem ao
@@ -932,7 +966,9 @@ E. A procedência total do pedido para condenar o Réu a restituir ao Autor a po
 
 F. A condenação do Réu ao pagamento de indenização pelos frutos percebidos e deteriorações do imóvel, a apurar em liquidação de sentença (art. 1.216, CC);
 
-G. A concessão da gratuidade de justiça (art. 98, CPC).
+G. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário;
+
+H. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -1179,6 +1215,14 @@ legítima dos sucessores de [NOME] é superior à posse deduzida pelos Autores, 
 consequente indeferimento da prescrição aquisitiva quanto à área de [ÁREA INVADIDA].
 ```
 
+#### 5.2.6 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte contestante vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
 ##### 5.2.5 DA LITIGÂNCIA DE MÁ-FÉ *(se configurada)*
 
 ```
@@ -1210,7 +1254,9 @@ G. [Se cessão hereditária nula:] Que seja declarada a nulidade absoluta dos in
 
 H. [Se má-fé:] A condenação dos Autores por litigância de má-fé (arts. 80 e 81 do CPC);
 
-I. A concessão da gratuidade de justiça (art. 98, CPC).
+I. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário;
+
+J. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -1310,7 +1356,15 @@ Requisitos presentes: (i) necessidade comprovada da obra; (ii) recusa do Réu; (
 tentativas amigáveis; (iv) responsabilidade assumida pela Autora.
 ```
 
-#### 4.2 DA TUTELA DE URGÊNCIA
+#### 4.2 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
+#### 4.3 DA TUTELA DE URGÊNCIA
 
 ```
 A demora na obra causa prejuízos à Autora (ex.: deterioração da estrutura), justificando
@@ -1337,7 +1391,9 @@ E. A confirmação da liminar em definitivo, compelindo o Réu à obrigação de
 
 F. A condenação do Réu em custas e honorários (art. 85, CPC);
 
-G. A concessão da gratuidade de justiça (art. 98, CPC).
+G. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário;
+
+H. A concessão da gratuidade de justiça (art. 98, CPC).
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -1514,6 +1570,8 @@ F. O cancelamento do registro do imóvel na matrícula nº [NÚMERO], com expedi
 G. A condenação do(a) réu(ré) ao pagamento de indenização por danos materiais (R$ [VALOR]) e danos morais (R$ [VALOR]);
 
 H. A concessão da gratuidade de justiça (art. 98, CPC).
+
+I. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário.
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -1712,6 +1770,14 @@ Requer, portanto, a concessão de tutela de urgência para garantir passagem pro
 pelo imóvel do(a) Réu(ré), no trajeto indicado, até julgamento definitivo da causa.
 ```
 
+#### 4.5 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
 ---
 
 ### 5. DOS PEDIDOS (ESPECÍFICOS)
@@ -1726,6 +1792,8 @@ G. O arbitramento da indenização devida ao(à) Réu(ré), mediante avaliação
 H. A expedição de mandado para averbação da servidão nas matrículas dos imóveis dominante e serviente;
 
 I. A concessão da gratuidade de justiça (art. 98, CPC).
+
+J. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário.
 
 Atribui-se à causa o valor de R$ [VALOR] ([por extenso]).
 
@@ -1981,6 +2049,14 @@ A medida é reversível: preserva apenas o status quo da faixa litigiosa, sem im
 o(a) Réu(ré) de exercer domínio sobre a área incontroversa.
 ```
 
+#### Da Dispensa da Audiência de Conciliação
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é fundiário de alta complexidade, envolvendo múltiplos réus, sobreposição de áreas, cadeia dominial precária e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
 ---
 
 ### 5. DOS PEDIDOS
@@ -2020,6 +2096,8 @@ F. A condenação do(a) Réu(ré) ao pagamento de [metade das / totalidade das] 
    c/c art. 85, §2º, do CPC;
 
 G. [Se gratuidade:] A concessão da gratuidade de justiça (art. 98, CPC).
+
+H. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito fundiário.
 
 Dá-se à causa o valor de R$ [VALOR DO IMÓVEL] ([por extenso]).
 

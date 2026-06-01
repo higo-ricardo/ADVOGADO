@@ -20,7 +20,11 @@ Este arquivo e a fonte unica para triagem, codigo de peca, rito e coleta de dado
 
 ## 2. TRIAGEM DETALHADA POR TIPO DE PECA
 
-### 2-A — Imobiliario (`minutas-imobiliarias.md`)
+## 2-A — Imobiliario (`minutas-imobiliarias.md`)
+
+> ATENCAO: em acoes possessorias/imnobiliarias, o fundamento e DIREITO REAL (posse/propriedade/servidao/limites), NAO direito obrigacional.
+> Erro comum: tratar como inadimplemento contratual ou dano civil generico. O pedido principal SEMPRE e a protecao da posse/propriedade, nao indenizacao por quebra de contrato.
+> Regra de ouro: se for esbulho/turbacao/ameaca/reivindicacao/passagem forcada/demarcacao -> direito real. Nao misturar com art. 186/927 CC como fundamento principal.
 
 | Situacao | Codigo | Rito e notas |
 |---------|--------|-------------|
@@ -173,6 +177,8 @@ Este arquivo e a fonte unica para triagem, codigo de peca, rito e coleta de dado
 - Confirmar rito e codigo antes da redacao final.
 - Nao inventar dados; usar `[A PREENCHER]`.
 - Valor da causa por algarismos e por extenso quando aplicavel.
+- DIREITO REAL vs OBRIGACIONAL: se o pedido e sobre posse/propriedade/servidao/limites/Usucapiao/demarcacao/passagem forcada, o fundamento e DIREITO REAL (arts. 1.229-1.299 CC, arts. 554-568 CPC para possessorias, arts. 1.379-1.389 CC para servidoes). Nao confundir com direito obrigacional (Arts. 186/927 CC) a menos que o pedido seja EXCLUSIVAMENTE indenizatorio ou cumprimento de obrigacao contratual.
+- Se houver pedido misto (ex: convivencia familiar + alimentos), separar claramente o fundamento de cada pedido em topico proprio.
 - Em possessorias, observar fungibilidade e criterio temporal de forca nova/velha.
 - Em documentos D (CHO, PRO, DHI, SUB, HAB, ACO, ALV, CPS), permitir modo autonomo do `estagiario` quando nao houver ambiguidade estrategica.
 - Em CHO: definir modalidade (fixo/exito/misto) e destino dos honorarios sucumbenciais antes de redigir.

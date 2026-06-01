@@ -181,6 +181,14 @@ hipossuficiente técnico(a) em relação à Requerida, detentora exclusiva dos r
 técnicos e laudos internos pertinentes ao produto.
 ```
 
+#### 2.7 DA DISPENSA DA AUDIÊNCIA DE CONCILIAÇÃO
+
+```
+Em atenção ao art. 319, inciso VII, do Código de Processo Civil, a parte autora vem manifestar que não tem interesse na designação de audiência de conciliação ou mediação. O conflito é de alta complexidade, envolvendo múltiplas partes, sobreposição de direitos e atos concretos de ameaça já registrados em sede policial, o que torna a autocomposição inviável, à luz da experiência comum.
+
+Ela buscou a autocomposição por diversos meios e não obteve sucesso esperado, logo desnecessário a renovação de ato conciliatório a fim de que se alcance, no menor prazo possível, a apreciação da medida liminar e a salvaguarda dos direitos ameaçados com decisão eficaz e eficiente apta a resguardar os direitos violados.
+```
+
 ---
 
 ### 5. DOS PEDIDOS
@@ -188,32 +196,34 @@ técnicos e laudos internos pertinentes ao produto.
 ```
 Ante o exposto, requer a Vossa Excelência:
 
-a) A designação de audiência de conciliação (art. 319, VII, CPC/2015);
+a) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da complexidade do conflito;
 
-b) A citação [dos Réus / da Requerida] para comparecer e responder, sob pena de revelia;
+b) A designação de audiência de conciliação (art. 319, VII, CPC/2015);
 
-c) LIMINARMENTE, a concessão de TUTELA DE URGÊNCIA (art. 300, CPC c/c art. 84,
+c) A citação [dos Réus / da Requerida] para comparecer e responder, sob pena de revelia;
+
+d) LIMINARMENTE, a concessão de TUTELA DE URGÊNCIA (art. 300, CPC c/c art. 84,
    §3º, CDC), para determinar a substituição do produto [DESCRIÇÃO] por outro novo,
    de mesma marca e modelo, em 48 horas, sob pena de multa diária de R$ [VALOR]
    por dia de descumprimento;
 
-d) O deferimento da inversão do ônus da prova (art. 6º, VIII, CDC);
+e) O deferimento da inversão do ônus da prova (art. 6º, VIII, CDC);
 
-e) Ao final, a procedência total, para:
+f) Ao final, a procedência total, para:
    (i)  condenar [a Requerida / os Requeridos, solidariamente,] à SUBSTITUIÇÃO do
-        produto (NF nº [NÚMERO]) por outro novo, de mesma marca e modelo, confirmando
-        a tutela de urgência;
+         produto (NF nº [NÚMERO]) por outro novo, de mesma marca e modelo, confirmando
+         a tutela de urgência;
    (ii) caso impossível a substituição por produto idêntico: restituição de
-        R$ [VALOR], atualizado pelo INPC desde a compra + juros de 1% ao mês
-        desde a citação;
+         R$ [VALOR], atualizado pelo INPC desde a compra + juros de 1% ao mês
+         desde a citação;
    [Se garantia estendida:]
    (iii) condenar o [2º Réu] a transferir a garantia estendida para o produto
          substituto, sob pena de perdas e danos de R$ [VALOR];
    (iv) condenar ao pagamento de danos morais de R$ [VALOR];
 
-f) A condenação ao pagamento de custas e honorários (art. 85, §2º, CPC);
+g) A condenação ao pagamento de custas e honorários (art. 85, §2º, CPC);
 
-g) [Se gratuidade:] A concessão da gratuidade de justiça (art. 98, CPC).
+h) [Se gratuidade:] A concessão da gratuidade de justiça (art. 98, CPC).
 
 Dá-se à causa o valor de R$ [PRODUTO + DANOS MORAIS] ([por extenso]).
 

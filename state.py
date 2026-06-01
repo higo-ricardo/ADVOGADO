@@ -1,18 +1,19 @@
 """
-state.py — State machine centralizado do agente jurídico.
+state.py — State machine centralizado do agente juridico.
 Gerencia as 6 etapas do fluxo e todos os dados de sessão.
+Guard: todos os textos exibidos sao ASCII-safe por padrao.
 """
 import streamlit as st
 from enum import Enum
 
 
 class Etapa(str, Enum):
-    TRIAGEM = "triagem"           # 1. Usuário descreve o caso
-    CONFIRMACAO = "confirmacao"   # 2. Confirmar domínio + código da peça
+    TRIAGEM = "triagem"           # 1. Usuario descreve o caso
+    CONFIRMACAO = "confirmacao"   # 2. Confirmar dominio + codigo da peca
     COLETA = "coleta"             # 3. Preencher dados faltantes
     CONTRATO = "contrato"         # 4. Revisar contrato gerado
-    GERACAO = "geracao"           # 5. Geração da peça (streaming)
-    REVISAO = "revisao"           # 6. Checklist + aprovação + download
+    GERACAO = "geracao"           # 5. Geracao da peça (streaming)
+    REVISAO = "revisao"           # 6. Revisao + aprovacao + download
 
 
 ETAPA_LABEL = {
@@ -21,7 +22,7 @@ ETAPA_LABEL = {
     Etapa.COLETA:      "3. Dados do caso",
     Etapa.CONTRATO:    "4. Revisar briefing",
     Etapa.GERACAO:     "5. Gerando peça",
-    Etapa.REVISAO:     "6. Revisão e download",
+    Etapa.REVISAO:     "6. Revisao e download",
 }
 
 DEFAULTS: dict = {
@@ -30,12 +31,12 @@ DEFAULTS: dict = {
     "dominio": None,          # "A", "B", "C", etc.
     "dominio_nome": None,     # "Consumerista / JEC"
     "codigo_peca": None,      # "NEG", "ATR", etc.
-    "codigo_nome": None,      # "Negativação indevida"
+    "codigo_nome": None,      # "Negativacao indevida"
     "modo": None,             # "autonomo" | "integrado"
-    "dados_coletados": {},    # campos obrigatórios preenchidos
+    "dados_coletados": {},    # campos obrigatorios preenchidos
     "contrato": {},           # contrato_decisao serializado
     "peca_gerada": "",        # texto da peça final
-    "checklist": [],          # itens de aderência
+    "checklist": [],          # itens de aderencia
     "historico_advogado": [], # mensagens para o orquestrador
     "historico_estagiario":[], # mensagens para o executor
     "erro": None,
@@ -43,7 +44,7 @@ DEFAULTS: dict = {
 
 
 def init():
-    """Inicializa todos os estados com valores padrão."""
+    """Inicializa todos os estados com valores padrao."""
     for chave, valor in DEFAULTS.items():
         if chave not in st.session_state:
             st.session_state[chave] = valor

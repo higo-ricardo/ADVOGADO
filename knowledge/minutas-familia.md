@@ -273,7 +273,9 @@ Ante o exposto, requer a Vossa Excelência:
 
 A. A citação do(a) Réu(é) / de seu(sua) representante legal para contestar;
 
-B. A intimação do Ministério Público para atuar como custos legis (art. 178, II, CPC);
+B. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+C. A intimação do Ministério Público para atuar como custos legis (art. 178, II, CPC);
 
 C. A produção de prova pericial — exame de DNA — em laboratório público/credenciado,
    com coleta do Autor e do(a) Réu(é), custeada pelo Estado (art. 95, §3º, CPC);
@@ -602,7 +604,11 @@ Ante o exposto, requer a Vossa Excelência:
 A. A concessão da gratuidade da justiça, com dispensa do custeio do exame de DNA
    (art. 98, CPC c/c art. 95, §3º, CPC);
 
-B. A intimação do Ministério Público para intervir no feito como custos legis,
+B. A citação do(a) Réu(é) para contestar;
+
+C. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+D. A intimação do Ministério Público para intervir no feito como custos legis,
    em razão da menoridade do(a) investigante (art. 178, II, CPC);
 
 C. [Se cumulado alimentos:] A fixação de alimentos provisórios em [X]% dos
@@ -1531,7 +1537,9 @@ Ante o exposto, requer a Vossa Excelência:
 A. A abertura do presente inventário, com a nomeação de [NOME] como inventariante,
    determinando-se a prestação de compromisso (art. 618, CPC);
 
-B. A expedição de ofícios para levantamento da situação patrimonial do espólio junto
+B. A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC;
+
+C. A expedição de ofícios para levantamento da situação patrimonial do espólio junto
    a [Cartório de Registro de Imóveis / DETRAN / Receita Federal / instituições
    financeiras], se necessário;
 
@@ -2060,7 +2068,9 @@ Ante o exposto, requer a Vossa Excelência:
 
 a) A citação do(a) Requerido(a) para contestar no prazo legal;
 
-b) A intimação do Ministério Público para acompanhar o feito, em razão da presença
+c) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+d) A intimação do Ministério Público para acompanhar o feito, em razão da presença
    de [filhos menores / incapazes] (artigo 178, II, do CPC);
 
 c) [Se alimentos:] A fixação de alimentos provisórios em R$ [VALOR] / [X]% dos
@@ -2336,7 +2346,9 @@ a) [Se urgência:] A nomeação PROVISÓRIA do(a) Requerente como curador(a) pro
    do(a) interditando(a), nos termos do artigo 756, §1º, do CPC, até o julgamento
    final;
 
-b) A citação do(a) interditando(a) para, querendo, contestar, por curador
+b) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+c) A citação do(a) interditando(a) para, querendo, contestar, por curador
    especial se necessário (artigo 752, §2º, CPC);
 
 c) A intimação do Ministério Público para atuar como fiscal da lei em todos os atos
@@ -2615,7 +2627,9 @@ b) [Se urgência / risco:] A concessão de TUTELA DE URGÊNCIA para fixação de
 
 c) A citação do(a) Requerido(a) para contestar no prazo legal;
 
-d) A realização de ESTUDO SOCIAL pelo serviço técnico do juízo e, se necessário,
+d) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+e) A realização de ESTUDO SOCIAL pelo serviço técnico do juízo e, se necessário,
    de avaliação psicológica do(a) menor e de ambos os genitores, a fim de subsidiar
    a decisão judicial com elementos técnicos sobre o melhor interesse da criança;
 
@@ -2902,7 +2916,9 @@ c) [Se risco:] A SUSPENSÃO / RESTRIÇÃO cautelar das visitas do(a) Requerido(a
 
 d) A citação do(a) Requerido(a) para contestar no prazo legal;
 
-e) A realização de estudo social e avaliação psicológica do(a) menor e de ambos
+e) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+f) A realização de estudo social e avaliação psicológica do(a) menor e de ambos
    os genitores pelo serviço técnico do juízo;
 
 f) [Se alienação parental:] A realização de investigação sobre a prática de
@@ -3104,7 +3120,9 @@ a) O RECEBIMENTO e APROVAÇÃO da presente prestação de contas, determinando-s
 b) A expedição de CERTIDÃO DE REGULARIDADE da curatela, para os fins que se fizerem
    necessários (previdência, bancos, cartórios);
 
-c) [Se gratuidade:] A concessão da gratuidade da justiça (artigo 98 do CPC).
+c) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+d) [Se gratuidade:] A concessão da gratuidade da justiça (artigo 98 do CPC).
 
 [Cidade]/MA, [dia] de [mês] de [ano].
 
@@ -3507,7 +3525,9 @@ a) A intimação do Ministério Público para acompanhar o feito, em razão da
 b) A citação do(a) Requerido(a) para, querendo, contestar ou aderir ao pedido,
    no prazo legal;
 
-c) [Se consensual:] A homologação do acordo entre os cônjuges, conforme
+c) A dispensa da audiência de conciliação, nos termos do art. 319, VII, CPC, por inviável a autocomposição em razão da natureza e complexidade do feito;
+
+d) [Se consensual:] A homologação do acordo entre os cônjuges, conforme
    instrumento em anexo, com a decretação do divórcio;
 
 d) [Se litigioso:] Ao final, a procedência total do pedido, para:

@@ -2,6 +2,8 @@
 ui/pages.py — As 6 telas do fluxo do agente jurídico.
 Cada função render_* corresponde a uma etapa do state machine.
 """
+import traceback
+
 import streamlit as st
 import state
 from state import Etapa
@@ -60,7 +62,7 @@ def render_confirmacao():
     dom_nome  = state.get("dominio_nome")
 
     # Mostra o caso resumido
-    with st.expander("📋 Caso descrito", expanded=False):
+    with st.expander("[Caso] Caso descrito", expanded=False):
         st.write(descricao)
 
     # Seleção de domínio
@@ -130,7 +132,6 @@ def render_coleta():
     st.subheader("Dados do caso")
     badge_codigo(codigo, cod_nome)
     st.caption(f"Domínio: {dom_nome}")
-    st.markdown("Preencha os dados abaixo. Campos com **\*** são obrigatórios.")
 
     campos = campos_do_codigo(codigo)
     dados_anteriores = state.get("dados_coletados", {})
@@ -155,9 +156,9 @@ def render_coleta():
 
         col1, col2 = st.columns(2)
         with col1:
-            voltar = st.form_submit_button("← Voltar")
+            voltar = st.form_submit_button("<- Voltar")
         with col2:
-            avancar = st.form_submit_button("Gerar briefing →", type="primary", use_container_width=True)
+            avancar = st.form_submit_button("Gerar briefing ->", type="primary", use_container_width=True)
 
     if voltar:
         state.avancar(Etapa.CONFIRMACAO)
@@ -210,7 +211,9 @@ def render_contrato():
                 )
                 state.set("contrato", contrato)
             except Exception as e:
-                alerta_erro(f"Erro ao gerar briefing: {e}")
+                import traceback; traceback.print_exc()
+                erro_str = str(e).encode("utf-8", errors="replace").decode("utf-8", errors="replace")
+                alerta_erro(f"Erro ao gerar briefing: {erro_str}")
                 return
         st.rerun()
 
@@ -228,16 +231,16 @@ def render_contrato():
         modo_label = "Autônomo (direto)" if modo == "autonomo" else "Integrado (advogado + estagiário)"
         st.info(modo_label)
 
-    st.markdown("**Pedidos identificados**")
-    for pedido in contrato.get("pedidos", []):
-        st.markdown(f"• {pedido}")
+        st.markdown("**Pedidos identificados**")
+        for pedido in contrato.get("pedidos", []):
+            st.markdown(f"- {pedido}")
 
-    st.markdown("**Critérios de aceite**")
+    st.markdown("**Criterios de aceite**")
     for criterio in contrato.get("criterios_aceite", []):
-        st.markdown(f"✓ {criterio}")
+        st.markdown(f"- {criterio}")
 
     if contrato.get("regras_criticas"):
-        st.markdown("**⚠️ Regras críticas para este tipo de peça**")
+        st.markdown("**Regras criticas para este tipo de peça**")
         for regra in contrato.get("regras_criticas", []):
             st.warning(regra)
 
@@ -245,16 +248,16 @@ def render_contrato():
 
     col1, col2, col3 = st.columns([1, 1, 2])
     with col1:
-        if st.button("← Voltar"):
+        if st.button("<- Voltar"):
             state.set("contrato", {})
             state.avancar(Etapa.COLETA)
             st.rerun()
     with col2:
-        if st.button("↺ Refazer briefing"):
+        if st.button("Refazer briefing"):
             state.set("contrato", {})
             st.rerun()
     with col3:
-        if st.button("✏️ Gerar peça agora →", type="primary", use_container_width=True):
+        if st.button("Gerar peça agora ->", type="primary", use_container_width=True):
             state.avancar(Etapa.GERACAO)
             st.rerun()
 
@@ -282,7 +285,11 @@ def render_geracao():
         try:
             with st.spinner("Estagiário redigindo..."):
                 stream = agent.estagiario_redigir(contrato, codigo)
-                peca_completa = st.write_stream(stream)
+                buffer = ""
+                for chunk in stream:
+                    buffer += chunk
+                    container.markdown(buffer)
+                peca_completa = buffer
         except Exception as e:
             alerta_erro(f"Erro na geração: {e}")
             if st.button("Tentar novamente"):
@@ -313,7 +320,7 @@ def render_revisao():
     badge_codigo(codigo, cod_nome)
 
     # Tabs: peça | checklist | delta
-    tab_peca, tab_check, tab_delta = st.tabs(["📄 Peça", "✅ Checklist", "✏️ Solicitar ajuste"])
+    tab_peca, tab_check, tab_delta = st.tabs(["Peca", "Checklist", "Solicitar ajuste"])
 
     with tab_peca:
         # Separa o corpo da peça do checklist/pendências

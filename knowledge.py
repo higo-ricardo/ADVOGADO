@@ -5,63 +5,65 @@ Os arquivos devem estar na pasta knowledge/ junto com o app.
 import streamlit as st
 from pathlib import Path
 
+from text_utils import normalize_utf8_strict
+
 KNOWLEDGE_DIR = Path(__file__).parent / "knowledge"
 
-# Mapa código de peça → arquivo de minuta
+# Mapa código de peça → caminho relativo em knowledge/
 MINUTA_POR_CODIGO: dict[str, str] = {
     # Domínio A
-    "RPO": "minutas-imobiliarias.md",
-    "MPO": "minutas-imobiliarias.md",
-    "IPR": "minutas-imobiliarias.md",
-    "IPO": "minutas-imobiliarias.md",
-    "REI": "minutas-imobiliarias.md",
-    "CUS": "minutas-imobiliarias.md",
-    "ANU": "minutas-imobiliarias.md",
-    "PAF": "minutas-imobiliarias.md",
-    "VIZ": "minutas-imobiliarias.md",
-    "DMT": "minutas-imobiliarias.md",
+    "RPO": "imobiliarias/acao_reintegracao_posse.md",
+    "MPO": "imobiliarias/acao_manutencao_posse.md",
+    "IPR": "imobiliarias/acao_interdito_proibitorio.md",
+    "IPO": "imobiliarias/acao_imissao_posse.md",
+    "REI": "imobiliarias/acao_reivindicatoria.md",
+    "CUS": "imobiliarias/contestacao_usucapiao.md",
+    "ANU": "imobiliarias/acao_anulatoria_documento.md",
+    "PAF": "imobiliarias/acao_passagem_forcada.md",
+    "VIZ": "imobiliarias/vizinhanca_direito_construir.md",
+    "DMT": "imobiliarias/acao_demarcacao_terras.md",
     # Domínio B
-    "PI":  "minutas-consumeristas.md",
-    "NEG": "minutas-consumeristas.md",
-    "PSC": "minutas-consumeristas.md",
-    "PSN": "minutas-consumeristas.md",
-    "TEL": "minutas-consumeristas.md",
-    "TRO": "minutas-consumeristas.md",
-    "TRB": "minutas-consumeristas.md",
-    "DIS": "minutas-consumeristas.md",
-    "CEL": "minutas-consumeristas.md",
-    "RPR": "minutas-consumeristas.md",
-    "OBF": "minutas-consumeristas.md",
-    "RI":  "minutas-consumeristas.md",
-    "CR":  "minutas-consumeristas.md",
-    "ED":  "minutas-consumeristas.md",
-    "AI":  "minutas-consumeristas.md",
+    "PI":  "consumeristas/minutas-consumeristas.md",
+    "NEG": "consumeristas/minutas-consumeristas.md",
+    "PSC": "consumeristas/minutas-consumeristas.md",
+    "PSN": "consumeristas/minutas-consumeristas.md",
+    "TEL": "consumeristas/minutas-consumeristas.md",
+    "TRO": "consumeristas/minutas-consumeristas.md",
+    "TRB": "consumeristas/minutas-consumeristas.md",
+    "DIS": "consumeristas/minutas-consumeristas.md",
+    "CEL": "consumeristas/minutas-consumeristas.md",
+    "RPR": "consumeristas/minutas-consumeristas.md",
+    "OBF": "consumeristas/minutas-consumeristas.md",
+    "RI":  "consumeristas/minutas-consumeristas.md",
+    "CR":  "consumeristas/minutas-consumeristas.md",
+    "ED":  "consumeristas/minutas-consumeristas.md",
+    "AI":  "consumeristas/minutas-consumeristas.md",
     # Domínio C
-    "ATR": "minutas-civeis.md",
-    "ALU": "minutas-civeis.md",
-    "REP": "minutas-civeis.md",
+    "ATR": "civeis/minutas-civeis.md",
+    "ALU": "civeis/cobranca_alugueis_rescisao.md",
+    "REP": "civeis/replica_contestacao.md",
     # Domínio D
     "CHO": "documentos.md",
-    "PRO": "documentos.md",
-    "DHI": "documentos.md",
-    "SUB": "minutas-intermediariais.md",
-    "HAB": "minutas-intermediariais.md",
-    "ACO": "minutas-intermediariais.md",
-    "ALV": "minutas-intermediariais.md",
-    "CPS": "minutas-intermediariais.md",
+    "PRO": "intermediarias/procuracao_ad_judicia.md",
+    "DHI": "intermediarias/declaracao_hipossuficiencia.md",
+    "SUB": "intermediarias/substabelecimento.md",
+    "HAB": "intermediarias/habilitacao_advogado.md",
+    "ACO": "intermediarias/peticao_acordo.md",
+    "ALV": "intermediarias/expedicao_alvara.md",
+    "CPS": "intermediarias/cumprimento_sentenca.md",
     # Domínio F
-    "NEP": "minutas-familia.md",
-    "INP": "minutas-familia.md",
-    "ALI": "minutas-familia.md",
-    "EXA": "minutas-familia.md",
-    "INV": "minutas-familia.md",
-    "OFA": "minutas-familia.md",
-    "UNE": "minutas-familia.md",
-    "INT": "minutas-familia.md",
-    "GUA": "minutas-familia.md",
-    "VIS": "minutas-familia.md",
-    "CUR": "minutas-familia.md",
-    "DIV": "minutas-familia.md",
+    "NEP": "familia/minutas-familia.md",
+    "INP": "familia/minutas-familia.md",
+    "ALI": "familia/minutas-familia.md",
+    "EXA": "familia/minutas-familia.md",
+    "INV": "familia/minutas-familia.md",
+    "OFA": "familia/minutas-familia.md",
+    "UNE": "familia/minutas-familia.md",
+    "INT": "familia/minutas-familia.md",
+    "GUA": "familia/minutas-familia.md",
+    "VIS": "familia/minutas-familia.md",
+    "CUR": "familia/minutas-familia.md",
+    "DIV": "familia/minutas-familia.md",
     # Domínio G
     "AP":  "remedios-constitucionais.md",
     "HC":  "remedios-constitucionais.md",
@@ -82,7 +84,8 @@ def _ler_arquivo(nome: str) -> str:
     """Lê e cacheia um arquivo .md da knowledge base."""
     caminho = KNOWLEDGE_DIR / nome
     if caminho.exists():
-        return caminho.read_text(encoding="utf-8")
+        texto = caminho.read_text(encoding="utf-8", errors="replace")
+        return normalize_utf8_strict(texto)
     return f"[Arquivo {nome} não encontrado na knowledge base]"
 
 

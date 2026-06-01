@@ -18,9 +18,9 @@ def cabecalho():
     """Cabeçalho fixo do app."""
     col1, col2 = st.columns([6, 1])
     with col1:
-        st.markdown("### ⚖️ Agente Jurídico")
+        st.markdown("### Agente Juridico")
     with col2:
-        if st.button("↺ Reiniciar", help="Começa um novo caso do zero"):
+        if st.button("Reiniciar", help="Começa um novo caso do zero"):
             from state import reiniciar
             reiniciar()
             st.rerun()
@@ -73,7 +73,7 @@ def badge_codigo(codigo: str, nome: str):
 
 
 def alerta_erro(msg: str):
-    st.error(f"⚠️ {msg}")
+    st.error(f"Erro: {msg}")
 
 
 def checklist_visual(itens: list[str]):
