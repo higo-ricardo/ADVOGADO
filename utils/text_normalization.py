@@ -1,6 +1,8 @@
 """
-text_utils.py — Utilitários de normalização de texto para evitar erros de encoding.
+text_normalization.py — Utilitários de normalização de texto para evitar erros de encoding.
 Centraliza toute a lógica de ascii/utf-8 aqui para não espalhar try/except pelo app.
+
+Este módulo substitui o antigo text_utils.py com melhor organização.
 """
 from __future__ import annotations
 

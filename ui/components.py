@@ -2,16 +2,24 @@
 ui/components.py — Componentes reutilizáveis da interface.
 """
 import streamlit as st
-from state import Etapa, ETAPA_LABEL, etapa_atual, etapa_idx
+from core.state_machine import Etapa, ETAPA_LABEL
+from ui.adapters import get_state_machine
+
+
+def etapa_idx() -> int:
+    """Obtém o índice da etapa atual."""
+    sm = get_state_machine()
+    return sm.etapa_atual.value  # type: ignore
 
 
 def barra_progresso():
     """Exibe barra de progresso com as 6 etapas."""
+    sm = get_state_machine()
     etapas = list(Etapa)
-    idx = etapa_idx()
+    idx = etapas.index(sm.etapa_atual)
     total = len(etapas)
 
-    st.progress((idx) / (total - 1), text=f"Etapa {idx + 1} de {total}: **{ETAPA_LABEL[etapa_atual()]}**")
+    st.progress((idx) / (total - 1), text=f"Etapa {idx + 1} de {total}: **{ETAPA_LABEL[sm.etapa_atual]}**")
 
 
 def cabecalho():
@@ -21,8 +29,8 @@ def cabecalho():
         st.markdown("### Agente Juridico")
     with col2:
         if st.button("Reiniciar", help="Começa um novo caso do zero"):
-            from state import reiniciar
-            reiniciar()
+            sm = get_state_machine()
+            sm.reiniciar()
             st.rerun()
     st.divider()
 

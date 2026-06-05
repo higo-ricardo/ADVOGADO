@@ -22,8 +22,8 @@ try:
 except AttributeError:
     pass
 
-# Importa text_utils PRIMEIRO para interceptar todo texto
-import text_utils
+# Importa text_normalization PRIMEIRO para interceptar todo texto
+from utils.text_normalization import normalize_ascii_safe, normalize_utf8_strict
 
 import streamlit as st
 
@@ -35,8 +35,7 @@ st.set_page_config(
 )
 
 # Importa modulos do app
-import state
-from state import Etapa
+from core.state_machine import AgentState, Etapa, StateMachine
 from ui.components import cabecalho, barra_progresso
 from ui.pages import (
     render_triagem,
@@ -46,6 +45,7 @@ from ui.pages import (
     render_geracao,
     render_revisao,
 )
+from ui.adapters import get_state_machine, save_state_machine
 
 # CSS minimalista — sem acentos
 st.markdown("""
@@ -57,8 +57,8 @@ div[data-testid="stVerticalBlock"] > div { gap: 0.5rem; }
 </style>
 """, unsafe_allow_html=True)
 
-# Inicializa state
-state.init()
+# Inicializa state machine
+state_machine = get_state_machine()
 
 # Cabecalho e progresso
 cabecalho()
@@ -66,7 +66,7 @@ barra_progresso()
 st.markdown("")
 
 # Roteamento por etapa
-etapa = state.etapa_atual()
+etapa = state_machine.etapa_atual
 
 if   etapa == Etapa.TRIAGEM:      render_triagem()
 elif etapa == Etapa.CONFIRMACAO:  render_confirmacao()

@@ -5,12 +5,11 @@ Cada função render_* corresponde a uma etapa do state machine.
 import traceback
 
 import streamlit as st
-import state
-from state import Etapa
-from router import detectar_dominio, codigos_do_dominio, campos_do_codigo, is_autonomo
+from core.state_machine import Etapa
+from core.router import detectar_dominio, codigos_do_dominio, campos_do_codigo, is_autonomo
 from ui.components import card_info, badge_codigo, checklist_visual, alerta_erro
-import agent
-import export
+from ui.adapters import get_adapter, get_state_machine
+from utils.export import export_to_txt, export_to_docx
 
 
 # ---------------------------------------------------------------------------
@@ -29,7 +28,7 @@ def render_triagem():
                 "Ex: Meu cliente foi esbulhado de sua propriedade rural há 3 meses. "
                 "O invasor entrou de madrugada e não quer sair..."
             ),
-            value=state.get("descricao_caso", ""),
+            value=get_state_machine().get("descricao_caso", ""),
         )
         enviado = st.form_submit_button("Analisar caso →", type="primary", use_container_width=True)
 
@@ -38,15 +37,15 @@ def render_triagem():
             alerta_erro("Descreva o caso com mais detalhes (mínimo 20 caracteres).")
             return
 
-        state.set("descricao_caso", descricao)
+        get_state_machine().set("descricao_caso", descricao)
 
         resultado = detectar_dominio(descricao)
         if resultado:
             dom_id, dom_nome = resultado
-            state.set("dominio", dom_id)
-            state.set("dominio_nome", dom_nome)
+            get_state_machine().set("dominio", dom_id)
+            get_state_machine().set("dominio_nome", dom_nome)
 
-        state.avancar(Etapa.CONFIRMACAO)
+        get_state_machine().avancar(Etapa.CONFIRMACAO)
         st.rerun()
 
 
@@ -57,9 +56,9 @@ def render_triagem():
 def render_confirmacao():
     st.subheader("Confirme o tipo de peça")
 
-    descricao = state.get("descricao_caso")
-    dom_id    = state.get("dominio")
-    dom_nome  = state.get("dominio_nome")
+    descricao = get_state_machine().get("descricao_caso")
+    dom_id    = get_state_machine().get("dominio")
+    dom_nome  = get_state_machine().get("dominio_nome")
 
     # Mostra o caso resumido
     with st.expander("[Caso] Caso descrito", expanded=False):
@@ -103,20 +102,20 @@ def render_confirmacao():
         voltar     = st.form_submit_button("← Voltar")
 
     if voltar:
-        state.avancar(Etapa.TRIAGEM)
+        get_state_machine().avancar(Etapa.TRIAGEM)
         st.rerun()
 
     if confirmado:
         cod, nome_cod = codigos[codigos_labels.index(codigo_sel_label)]
         dom_label = dominio_sel.split(" — ", 1)
 
-        state.set("dominio",      dom_id_sel)
-        state.set("dominio_nome", dom_label[1] if len(dom_label) > 1 else dominio_sel)
-        state.set("codigo_peca",  cod)
-        state.set("codigo_nome",  nome_cod)
-        state.set("modo", "autonomo" if is_autonomo(cod) else "integrado")
+        get_state_machine().set("dominio",      dom_id_sel)
+        get_state_machine().set("dominio_nome", dom_label[1] if len(dom_label) > 1 else dominio_sel)
+        get_state_machine().set("codigo_peca",  cod)
+        get_state_machine().set("codigo_nome",  nome_cod)
+        get_state_machine().set("modo", "autonomo" if is_autonomo(cod) else "integrado")
 
-        state.avancar(Etapa.COLETA)
+        get_state_machine().avancar(Etapa.COLETA)
         st.rerun()
 
 
@@ -125,16 +124,16 @@ def render_confirmacao():
 # ---------------------------------------------------------------------------
 
 def render_coleta():
-    codigo    = state.get("codigo_peca")
-    cod_nome  = state.get("codigo_nome")
-    dom_nome  = state.get("dominio_nome")
+    codigo    = get_state_machine().get("codigo_peca")
+    cod_nome  = get_state_machine().get("codigo_nome")
+    dom_nome  = get_state_machine().get("dominio_nome")
 
     st.subheader("Dados do caso")
     badge_codigo(codigo, cod_nome)
     st.caption(f"Domínio: {dom_nome}")
 
     campos = campos_do_codigo(codigo)
-    dados_anteriores = state.get("dados_coletados", {})
+    dados_anteriores = get_state_machine().get("dados_coletados", {})
 
     with st.form("form_coleta"):
         valores: dict = {}
@@ -161,7 +160,7 @@ def render_coleta():
             avancar = st.form_submit_button("Gerar briefing ->", type="primary", use_container_width=True)
 
     if voltar:
-        state.avancar(Etapa.CONFIRMACAO)
+        get_state_machine().avancar(Etapa.CONFIRMACAO)
         st.rerun()
 
     if avancar:
@@ -175,8 +174,8 @@ def render_coleta():
             alerta_erro(f"Preencha os campos: {', '.join(faltando)}")
             return
 
-        state.set("dados_coletados", valores)
-        state.avancar(Etapa.CONTRATO)
+        get_state_machine().set("dados_coletados", valores)
+        get_state_machine().avancar(Etapa.CONTRATO)
         st.rerun()
 
 
@@ -188,20 +187,20 @@ def render_contrato():
     st.subheader("Briefing do caso")
     st.caption("O sistema preparou o briefing abaixo. Revise antes de gerar a peça.")
 
-    codigo    = state.get("codigo_peca")
-    cod_nome  = state.get("codigo_nome")
-    dom_id    = state.get("dominio")
-    dom_nome  = state.get("dominio_nome")
-    dados     = state.get("dados_coletados", {})
-    modo      = state.get("modo")
-    contrato_existente = state.get("contrato", {})
+    codigo    = get_state_machine().get("codigo_peca")
+    cod_nome  = get_state_machine().get("codigo_nome")
+    dom_id    = get_state_machine().get("dominio")
+    dom_nome  = get_state_machine().get("dominio_nome")
+    dados     = get_state_machine().get("dados_coletados", {})
+    modo      = get_state_machine().get("modo")
+    contrato_existente = get_state_machine().get("contrato", {})
 
     # Gera o contrato apenas uma vez
     if not contrato_existente:
         with st.spinner("Preparando briefing..."):
             try:
-                contrato = agent.gerar_contrato(
-                    descricao_caso=state.get("descricao_caso"),
+                contrato = get_adapter().gerar_contrato(
+                    descricao_caso=get_state_machine().get("descricao_caso"),
                     dominio=dom_id,
                     dominio_nome=dom_nome,
                     codigo=codigo,
@@ -209,7 +208,7 @@ def render_contrato():
                     dados_coletados=dados,
                     modo=modo,
                 )
-                state.set("contrato", contrato)
+                get_state_machine().set("contrato", contrato)
             except Exception as e:
                 import traceback; traceback.print_exc()
                 erro_str = str(e).encode("utf-8", errors="replace").decode("utf-8", errors="replace")
@@ -217,7 +216,7 @@ def render_contrato():
                 return
         st.rerun()
 
-    contrato = state.get("contrato")
+    contrato = get_state_machine().get("contrato")
 
     # Exibe o contrato de forma amigável
     badge_codigo(codigo, cod_nome)
@@ -249,16 +248,16 @@ def render_contrato():
     col1, col2, col3 = st.columns([1, 1, 2])
     with col1:
         if st.button("<- Voltar"):
-            state.set("contrato", {})
-            state.avancar(Etapa.COLETA)
+            get_state_machine().set("contrato", {})
+            get_state_machine().avancar(Etapa.COLETA)
             st.rerun()
     with col2:
         if st.button("Refazer briefing"):
-            state.set("contrato", {})
+            get_state_machine().set("contrato", {})
             st.rerun()
     with col3:
         if st.button("Gerar peça agora ->", type="primary", use_container_width=True):
-            state.avancar(Etapa.GERACAO)
+            get_state_machine().avancar(Etapa.GERACAO)
             st.rerun()
 
 
@@ -269,14 +268,14 @@ def render_contrato():
 def render_geracao():
     st.subheader("Gerando a peça processual")
 
-    codigo   = state.get("codigo_peca")
-    cod_nome = state.get("codigo_nome")
-    contrato = state.get("contrato")
+    codigo   = get_state_machine().get("codigo_peca")
+    cod_nome = get_state_machine().get("codigo_nome")
+    contrato = get_state_machine().get("contrato")
 
     badge_codigo(codigo, cod_nome)
     st.caption("A peça está sendo redigida. Aguarde...")
 
-    peca_existente = state.get("peca_gerada", "")
+    peca_existente = get_state_machine().get("peca_gerada", "")
 
     if not peca_existente:
         container = st.empty()
@@ -284,7 +283,7 @@ def render_geracao():
 
         try:
             with st.spinner("Estagiário redigindo..."):
-                stream = agent.estagiario_redigir(contrato, codigo)
+                stream = get_adapter().estagiario_redigir(contrato, codigo)
                 buffer = ""
                 for chunk in stream:
                     buffer += chunk
@@ -296,11 +295,11 @@ def render_geracao():
                 st.rerun()
             return
 
-        state.set("peca_gerada", peca_completa)
-        state.avancar(Etapa.REVISAO)
+        get_state_machine().set("peca_gerada", peca_completa)
+        get_state_machine().avancar(Etapa.REVISAO)
         st.rerun()
     else:
-        state.avancar(Etapa.REVISAO)
+        get_state_machine().avancar(Etapa.REVISAO)
         st.rerun()
 
 
@@ -311,11 +310,11 @@ def render_geracao():
 def render_revisao():
     st.subheader("Revisão e download")
 
-    codigo    = state.get("codigo_peca")
-    cod_nome  = state.get("codigo_nome")
-    contrato  = state.get("contrato", {})
-    peca      = state.get("peca_gerada", "")
-    dados     = state.get("dados_coletados", {})
+    codigo    = get_state_machine().get("codigo_peca")
+    cod_nome  = get_state_machine().get("codigo_nome")
+    contrato  = get_state_machine().get("contrato", {})
+    peca      = get_state_machine().get("peca_gerada", "")
+    dados     = get_state_machine().get("dados_coletados", {})
 
     badge_codigo(codigo, cod_nome)
 
@@ -353,9 +352,9 @@ def render_revisao():
             if instrucao.strip():
                 nova_peca = ""
                 with st.spinner("Aplicando delta..."):
-                    stream = agent.advogado_delta(peca, instrucao, contrato)
+                    stream = get_adapter().advogado_delta(peca, instrucao, contrato)
                     nova_peca = st.write_stream(stream)
-                state.set("peca_gerada", nova_peca)
+                get_state_machine().set("peca_gerada", nova_peca)
                 st.success("Ajuste aplicado!")
                 st.rerun()
             else:
@@ -400,5 +399,5 @@ def render_revisao():
 
     st.divider()
     if st.button("🆕 Novo caso", use_container_width=True):
-        state.reiniciar()
+        get_state_machine().reiniciar()
         st.rerun()

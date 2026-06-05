@@ -1,6 +1,8 @@
 """
 export.py — Exporta a peça gerada para .docx.
 Usa python-docx com formatação jurídica básica.
+
+Este módulo foi movido de export.py raiz para utils/export.py.
 """
 import io
 import re
