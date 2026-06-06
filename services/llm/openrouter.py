@@ -1,5 +1,5 @@
 """
-openrouter.py — Implementação do provedor OpenRouter.
+services/llm/openrouter.py — Implementação do provedor OpenRouter.
 OpenRouter expõe API compatível com OpenAI.
 """
 from __future__ import annotations
@@ -12,6 +12,7 @@ from openai import OpenAI
 from infrastructure.config import config
 from infrastructure.exceptions import ConfigurationError, LLMError
 from services.llm.base import LLMProvider
+from services.llm.rate_limiter import get_rate_limiter, RateLimitConfig
 
 
 class OpenRouterProvider(LLMProvider):
@@ -22,6 +23,7 @@ class OpenRouterProvider(LLMProvider):
     - Modelo primário configurável
     - Fallback automático para modelos alternativos
     - Streaming e non-streaming
+    - Rate limiting integrado
     """
     
     def __init__(self, api_key: str | None = None):
@@ -50,6 +52,9 @@ class OpenRouterProvider(LLMProvider):
         self._model_primary = config.MODEL_PRIMARY
         self._models_fallback = config.MODELS_FALLBACK
         self._max_tokens = config.MAX_TOKENS
+        
+        # Inicializa rate limiter com configuração da aplicação
+        self._rate_limiter = get_rate_limiter()
     
     @property
     def name(self) -> str:
@@ -67,6 +72,12 @@ class OpenRouterProvider(LLMProvider):
         **kwargs: Any,
     ) -> Any:
         """Tenta uma completion com um modelo específico."""
+        # Aguarda rate limiter antes de fazer requisição
+        if not self._rate_limiter.acquire(timeout=30.0):
+            raise LLMError(
+                "Rate limit excedido. Aguarde alguns segundos antes de tentar novamente."
+            )
+        
         return self._client.chat.completions.create(
             model=model,
             max_tokens=kwargs.get("max_tokens", self._max_tokens),
@@ -118,6 +129,7 @@ class OpenRouterProvider(LLMProvider):
         Yields:
             Chunks de texto da resposta
         """
+        # Rate limiting já é aplicado no chat_completion
         stream = self.chat_completion(
             messages=messages,
             stream=True,
@@ -132,3 +144,12 @@ class OpenRouterProvider(LLMProvider):
                         yield delta.content
         except Exception as exc:
             raise LLMError(f"Erro no streaming: {exc}")
+    
+    def get_rate_limit_stats(self) -> dict:
+        """
+        Retorna estatísticas de uso do rate limiter.
+        
+        Returns:
+            Dicionário com estatísticas de rate limiting
+        """
+        return self._rate_limiter.get_stats()
