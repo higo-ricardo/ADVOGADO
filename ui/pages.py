@@ -9,7 +9,7 @@ from core.state_machine import Etapa
 from core.router import detectar_dominio, codigos_do_dominio, campos_do_codigo, is_autonomo
 from ui.components import card_info, badge_codigo, checklist_visual, alerta_erro
 from ui.adapters import get_adapter, get_state_machine
-from utils.export import export_to_txt, export_to_docx
+from utils import export
 
 
 # ---------------------------------------------------------------------------

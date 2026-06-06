@@ -6,10 +6,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
+
+if TYPE_CHECKING:
+    from sentence_transformers import SentenceTransformer
 
 from infrastructure.config import config
 from infrastructure.exceptions import RAGError, KnowledgeError
@@ -44,16 +46,17 @@ class DocumentIndexer:
         self.chunk_size = chunk_size or config.RAG_CHUNK_SIZE
         self.chunk_overlap = chunk_overlap or config.RAG_CHUNK_OVERLAP
         
-        self._model: SentenceTransformer | None = None
+        self._model: "SentenceTransformer | None" = None
         self._vectors: np.ndarray | None = None
         self._ids: list[str] = []
         self._textos: list[str] = []
         self._indexed = False
     
-    def _load_model(self) -> SentenceTransformer:
+    def _load_model(self) -> "SentenceTransformer":
         """Carrega o modelo de embeddings."""
         if self._model is None:
             try:
+                from sentence_transformers import SentenceTransformer
                 self._model = SentenceTransformer(self.model_name)
             except Exception as exc:
                 raise RAGError(f"Falha ao carregar modelo de embeddings: {exc}")

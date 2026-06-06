@@ -5,6 +5,24 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [2.1.0] — 2026-06-05
+
+### 🎉 Adicionado
+- **Tema escuro/claro** com toggle na sidebar e persistência
+- **Importação de templates personalizados** via sidebar (suporte a .docx, .txt, .md)
+- **Importação de estilo jurídico** via sidebar (suporte a .txt, .md)
+- **Skeleton loading CSS** para feedback visual durante carregamento
+- **Paleta de cores jurídica** profissional (#1e3a8a, #10b981, #ef4444)
+- **Barra de progresso visual** com ícones para cada etapa
+- **Componentes reestilizados** (cards, badges, alerts) com sombras e hover
+
+### 🔧 Corrigido
+- **ImportError**: `export_to_txt` não existia em `utils/export.py` → corrigido para `export.gerar_docx`
+- **Lazy imports** implementados para `sentence_transformers`/`transformers` reduzindo tempo de inicialização
+- **Config `fileWatcherType=none`** para evitar inspecção excessiva de módulos pesados
+
+---
+
 ## [2.0.0] — 2026-06-01
 
 ### 🎉 Adicionado

@@ -2,88 +2,47 @@
 
 App Streamlit para geração de peças processuais com IA, usando OpenRouter (modelos gratuitos) + RAG semântico local.
 
+## ✨ Novidades
+
+- **Tema escuro/claro** - Toggle na sidebar para alternância de tema visual
+- **Importação de templates** - Faça upload de templates personalizados (.docx, .txt, .md)
+- **Importação de estilo jurídico** - Personalize o estilo de redação (.txt, .md)
+- **Interface jurídica profissional** - Paleta de cores sofisticada e componentes modernos
+
 ## Estrutura do projeto
 
 ```
-C:\Users\hig0\Desktop\HIGO\ADVOGADO
-├── app.py
-├── state.py
-├── router.py
-├── knowledge.py
-├── agent.py
-├── rag.py
-├── text_utils.py
-├── export.py
-├── requirements.txt
-├── .streamlit/
-│   ├── secrets.toml
-│   └── config.toml
+ADVOGADO/
+├── app.py                          # Entry point
+├── core/
+│   ├── state_machine.py           # Máquina de estados testável
+│   ├── router.py                  # Roteamento de domínios
+│   └── contract.py                # Lógica de contrato
 ├── ui/
-│   ├── components.py
-│   └── pages.py
-├── knowledge/
-│   ├── README.md
-│   ├── roteamento.md
-│   ├── minuta-base.md
-│   ├── contrato_decisao.md
-│   ├── advogado.md
-│   ├── estagiario.md
-│   ├── estilo_juridico.md
-│   ├── task.md
-│   ├── imobiliarias/
-│   │   ├── acao_imissao_posse.md
-│   │   ├── acao_interdito_proibitorio.md
-│   │   ├── acao_manutencao_posse.md
-│   │   ├── acao_reintegracao_posse.md
-│   │   ├── acao_reivindicatoria.md
-│   │   ├── contestacao_usucapiao.md
-│   │   ├── vizinhanca_direito_construir.md
-│   │   ├── acao_anulatoria_documento.md
-│   │   ├── acao_passagem_forcada.md
-│   │   └── acao_demarcacao_terras.md
-│   ├── civeis/
-│   │   ├── cobranca_alugueis_rescisao.md
-│   │   ├── distrato_recusa_demora.md
-│   │   └── replica_contestacao.md
-│   ├── intermediarias/
-│   │   ├── procuracao_ad_judicia.md
-│   │   ├── expedicao_alvara.md
-│   │   ├── cumprimento_sentenca.md
-│   │   ├── substabelecimento.md
-│   │   ├── habilitacao_advogado.md
-│   │   ├── declaracao_hipossuficiencia.md
-│   │   └── peticao_acordo.md
-│   ├── familia/
-│   │   ├── nep.md
-│   │   ├── inp.md
-│   │   ├── ali.md
-│   │   ├── exa.md
-│   │   ├── inv.md
-│   │   ├── ofa.md
-│   │   ├── une.md
-│   │   ├── int.md
-│   │   ├── gua.md
-│   │   ├── vis.md
-│   │   ├── cur.md
-│   │   └── div.md
-│   ├── remedios-constitucionais.md
-│   ├── recursos-civeis.md
-│   ├── fontes.md
-│   ├── verbetesSTF.md
-│   ├── verbetesSTJ.md
-│   └── sumulas-vinculantes.md
-└── docs/
-    ├── CHANGELOG.md
-    ├── ROADMAP.md
-    └── BACKLOG.md
+│   ├── components.py              # Componentes reutilizáveis (cards, badges, uploaders)
+│   └── pages.py                   # 6 telas do fluxo
+├── services/
+│   ├── llm/                       # Providers de LLM
+│   ├── rag/                       # Indexação e recuperação semântica
+│   ├── knowledge/                 # Base de conhecimento
+│   └── document.py                # Geração de documentos
+├── infrastructure/                 # Config, logging, exceções
+├── knowledge/                      # Minutas e fontes jurídicas
+├── data/
+│   └── templates/                  # Templates personalizados (upload)
+│   └── estilos/                    # Estilos personalizados (upload)
+├── .streamlit/
+│   ├── secrets.toml               # API keys
+│   └── config.toml                # Configurações do Streamlit
+└── docs/                          # Documentação
 ```
 
-## Tecnologias principais
+## Tecnologias
 
-- Streamlit (interface)
-- OpenRouter (modelos gratuitos com fallback automático)
-- RAG local com `sentence-transformers` + FAISS
-- Python 3.14
+- **Streamlit** - Interface web reativa
+- **OpenRouter** - Modelos LLM gratuitos com fallback
+- **Sentence-transformers** - Embeddings para RAG
+- **python-docx** - Exportação para Word
 
 ## Como rodar
 
@@ -93,11 +52,26 @@ streamlit run app.py
 
 ## Configuração
 
-- API key em `.streamlit/secrets.toml` (`OPENROUTER_API_KEY`)
-- Modelo primário configurado em `agent.py`: `openrouter/free`
+1. Configure a API key em `.streamlit/secrets.toml`:
+```toml
+OPENROUTER_API_KEY = "sua_chave_aqui"
+```
+
+2. Opcional: instale `python-docx` para exportar peças em .docx:
+```bash
+pip install python-docx
+```
+
+## Funcionalidades
+
+- **Etapas do fluxo**: Triagem → Confirmação → Coleta → Contrato → Geração → Revisão
+- **Upload de templates**: Adicione templates personalizados via sidebar
+- **Upload de estilo**: Personalize padrões de formatação jurídica
+- **Tema escuro**: Ative para reduzir fadiga visual
+- **Exportação**: Download em .txt (sempre) e .docx (com python-docx)
 
 ## Documentação
 
-- `docs/ROADMAP.md` — melhorias planejadas
-- `docs/BACKLOG.md` — pendências técnicas
-- `docs/CHANGELOG.md` — histórico de alterações
+- `docs/ROADMAP.md` — Melhorias planejadas
+- `docs/BACKLOG.md` — Pendências técnicas
+- `docs/CHANGELOG.md` — Histórico de alterações

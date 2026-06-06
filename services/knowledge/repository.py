@@ -4,10 +4,12 @@ Gerencia mapeamento de códigos de peças para arquivos e fornece contexto.
 """
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from services.knowledge.loader import KnowledgeLoader
 
 from infrastructure.exceptions import KnowledgeError
-from services.knowledge.loader import KnowledgeLoader
 
 
 # Mapa código de peça → caminho relativo em knowledge/
@@ -90,7 +92,7 @@ class KnowledgeRepository:
     - Montar contexto completo para geração de peças
     """
     
-    def __init__(self, loader: KnowledgeLoader | None = None):
+    def __init__(self, loader: "KnowledgeLoader | None" = None):
         """
         Inicializa o repositório.
         

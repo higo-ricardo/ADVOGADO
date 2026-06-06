@@ -12,16 +12,18 @@ Diferente do agent.py original, este módulo:
 from __future__ import annotations
 
 import json
-from typing import Any, Generator
+from typing import Any, TYPE_CHECKING, Generator
+
+if TYPE_CHECKING:
+    from services.llm.openrouter import OpenRouterProvider
+    from services.rag.indexer import DocumentIndexer
+    from services.rag.retriever import SemanticRetriever
+    from services.rag.prompt_builder import RAGPromptBuilder
+    from services.knowledge.loader import KnowledgeLoader
+    from services.knowledge.repository import KnowledgeRepository
 
 from infrastructure.config import config
 from infrastructure.exceptions import AgentError, LLMError, RAGError
-from services.llm.openrouter import OpenRouterProvider
-from services.rag.indexer import DocumentIndexer
-from services.rag.retriever import SemanticRetriever
-from services.rag.prompt_builder import RAGPromptBuilder
-from services.knowledge.loader import KnowledgeLoader
-from services.knowledge.repository import KnowledgeRepository
 
 
 class UIAdapter:
@@ -36,44 +38,50 @@ class UIAdapter:
     
     def __init__(self):
         """Inicializa o adapter com todos os serviços necessários."""
-        self._llm: OpenRouterProvider | None = None
-        self._indexer: DocumentIndexer | None = None
-        self._retriever: SemanticRetriever | None = None
-        self._prompt_builder: RAGPromptBuilder | None = None
-        self._knowledge_repo: KnowledgeRepository | None = None
+        self._llm: "OpenRouterProvider | None" = None
+        self._indexer: "DocumentIndexer | None" = None
+        self._retriever: "SemanticRetriever | None" = None
+        self._prompt_builder: "RAGPromptBuilder | None" = None
+        self._knowledge_repo: "KnowledgeRepository | None" = None
     
     @property
-    def llm(self) -> OpenRouterProvider:
+    def llm(self) -> "OpenRouterProvider":
         """Lazy loading do provedor LLM."""
         if self._llm is None:
+            from services.llm.openrouter import OpenRouterProvider
             self._llm = OpenRouterProvider()
         return self._llm
     
     @property
-    def indexer(self) -> DocumentIndexer:
+    def indexer(self) -> "DocumentIndexer":
         """Lazy loading do indexador RAG."""
         if self._indexer is None:
+            from services.rag.indexer import DocumentIndexer
             self._indexer = DocumentIndexer()
         return self._indexer
     
     @property
-    def retriever(self) -> SemanticRetriever:
+    def retriever(self) -> "SemanticRetriever":
         """Lazy loading do recuperador semântico."""
         if self._retriever is None:
+            from services.rag.retriever import SemanticRetriever
             self._retriever = SemanticRetriever(self.indexer)
         return self._retriever
     
     @property
-    def prompt_builder(self) -> RAGPromptBuilder:
+    def prompt_builder(self) -> "RAGPromptBuilder":
         """Lazy loading do construtor de prompts."""
         if self._prompt_builder is None:
+            from services.rag.prompt_builder import RAGPromptBuilder
             self._prompt_builder = RAGPromptBuilder()
         return self._prompt_builder
     
     @property
-    def knowledge_repo(self) -> KnowledgeRepository:
+    def knowledge_repo(self) -> "KnowledgeRepository":
         """Lazy loading do repositório de conhecimento."""
         if self._knowledge_repo is None:
+            from services.knowledge.loader import KnowledgeLoader
+            from services.knowledge.repository import KnowledgeRepository
             loader = KnowledgeLoader()
             self._knowledge_repo = KnowledgeRepository(loader)
         return self._knowledge_repo
