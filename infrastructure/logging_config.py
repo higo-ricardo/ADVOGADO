@@ -4,6 +4,20 @@ logging_config.py — Configuração de logging estruturado.
 import logging
 import sys
 from pathlib import Path
+from typing import Optional
+
+
+def get_logger(name: str = "agente_juridico") -> logging.Logger:
+    """
+    Obtém um logger com o nome especificado.
+    
+    Args:
+        name: Nome do logger (normalmente __name__ do módulo)
+    
+    Returns:
+        Logger configurado
+    """
+    return logging.getLogger(name)
 
 
 def setup_logging(level: str = "INFO", log_file: str = None) -> logging.Logger:
