@@ -6,14 +6,7 @@ import streamlit as st
 from pathlib import Path
 from core.state_machine import Etapa, ETAPA_LABEL
 from ui.adapters import get_state_machine
-
-# Paleta de cores jurídica
-COLORS = {
-    "primary": "#1e3a8a",
-    "success": "#10b981",
-    "warning": "#f59e0b",
-    "error": "#ef4444",
-}
+from ui.themes import COLORS, ETAPA_ICONS, get_component_styles, format_style_dict
 
 
 def template_uploader():
@@ -74,21 +67,21 @@ def barra_progresso():
     total = len(etapas)
     
     cols = st.columns(total)
-    icons = ["📁", "✓", "📝", "📋", "✍", "🔍"]
     
     for i, (col, etapa) in enumerate(zip(cols, etapas)):
         with col:
             active = i == idx
-            bg = COLORS["primary"] if active else "#e2e8f0"
-            color = "white" if active else COLORS["primary"]
+            if active:
+                styles = get_component_styles("progress_step_active")
+                label_color = COLORS["primary"]
+            else:
+                styles = get_component_styles("progress_step_inactive")
+                label_color = "#64748b"
+            
             st.markdown(
                 f"""
-                <div style="
-                    display:flex; align-items:center; justify-content:center;
-                    background:{bg}; color:{color}; width:32px; height:32px;
-                    border-radius:50%; font-weight:bold; margin:auto; font-size:14px;
-                ">{icons[i]}</div>
-                <div style="text-align:center; font-size:10px; margin-top:4px; color:{'#64748b' if not active else COLORS['primary']};">
+                <div style="{format_style_dict(styles)}">{ETAPA_ICONS[i]}</div>
+                <div style="text-align:center; font-size:10px; margin-top:4px; color:{label_color};">
                     {ETAPA_LABEL[etapa][:12]}
                 </div>
                 """,
@@ -134,24 +127,30 @@ def cabecalho():
 
 def card_info(titulo: str, conteudo: str, cor: str = "blue"):
     """Card de informação com estilo jurídico."""
-    cores = {"blue": COLORS["primary"], "green": COLORS["success"], "orange": COLORS["warning"], "red": COLORS["error"]}
+    cores = {
+        "blue": COLORS["primary"],
+        "green": COLORS["success"],
+        "orange": COLORS["warning"],
+        "red": COLORS["error"],
+    }
     hex_cor = cores.get(cor, COLORS["primary"])
     is_dark = st.session_state.get("dark_mode", False)
-    bg = "#1e293b" if is_dark else "#ffffff"
-    text = "#f8fafc" if is_dark else "#1e293b"
+    
+    if is_dark:
+        styles = get_component_styles("card_dark")
+        text_color = COLORS["text_dark"]
+    else:
+        styles = get_component_styles("card")
+        text_color = COLORS["text_light"]
+    
+    # Atualiza cor da borda
+    styles["border_left"] = f"4px solid {hex_cor}"
     
     st.markdown(
         f"""
-        <div style="
-            border-left: 4px solid {hex_cor};
-            padding: 16px 20px;
-            background: {bg};
-            border-radius: 8px;
-            margin-bottom: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        ">
+        <div style="{format_style_dict(styles)}">
             <strong style="color:{hex_cor}; font-size:14px;">{titulo}</strong>
-            <div style="color:{text}; margin-top:6px; font-size:13px;">{conteudo}</div>
+            <div style="color:{text_color}; margin-top:6px; font-size:13px;">{conteudo}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -160,18 +159,10 @@ def card_info(titulo: str, conteudo: str, cor: str = "blue"):
 
 def badge_codigo(codigo: str, nome: str):
     """Badge visual para o código da peça."""
+    styles = get_component_styles("badge")
     st.markdown(
         f"""
-        <div style="
-            display:inline-block;
-            background:{COLORS['primary']};
-            color:white;
-            padding:6px 14px;
-            border-radius:20px;
-            font-weight:600;
-            font-size:13px;
-            margin-bottom:12px;
-        ">{codigo} - {nome}</div>
+        <div style="{format_style_dict(styles)}">{codigo} - {nome}</div>
         """,
         unsafe_allow_html=True
     )
@@ -179,12 +170,12 @@ def badge_codigo(codigo: str, nome: str):
 
 def alerta_erro(msg: str):
     """Alerta de erro estilizado."""
+    styles = get_component_styles("alert_error")
     st.markdown(
         f"""
-        <div style="
-            background:#fef2f2; border-left:4px solid {COLORS['error']};
-            padding:12px 16px; border-radius:8px; margin:12px 0;
-        "><span style="color:{COLORS['error']}; font-weight:500;">⚠ {msg}</span></div>
+        <div style="{format_style_dict(styles)}">
+            <span style="color:{COLORS['error']}; font-weight:500;">⚠ {msg}</span>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -192,11 +183,12 @@ def alerta_erro(msg: str):
 
 def checklist_visual(itens: list[str]):
     """Exibe checklist com estilo jurídico."""
+    styles_item = get_component_styles("checklist_item")
     for item in itens:
         if item.strip():
             st.markdown(
                 f"""
-                <div style="margin:6px 0; padding:4px 0;">
+                <div style="{format_style_dict(styles_item)}">
                     <span style="color:{COLORS['success']}; font-weight:bold;">✓</span>
                     <span style="margin-left:8px;">{item}</span>
                 </div>

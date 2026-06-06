@@ -10,6 +10,7 @@ from core.router import detectar_dominio, codigos_do_dominio, campos_do_codigo, 
 from ui.components import card_info, badge_codigo, checklist_visual, alerta_erro
 from ui.adapters import get_adapter, get_state_machine
 from utils import export
+from utils.input_validation import validate_description, validate_campo_personalizado
 
 
 # ---------------------------------------------------------------------------
@@ -33,13 +34,22 @@ def render_triagem():
         enviado = st.form_submit_button("Analisar caso →", type="primary", use_container_width=True)
 
     if enviado:
-        if len(descricao.strip()) < 20:
-            alerta_erro("Descreva o caso com mais detalhes (mínimo 20 caracteres).")
+        # Validação XSS e tamanho da descrição
+        validacao = validate_description(descricao)
+        
+        if not validacao.is_valid:
+            if validacao.severity.value == "critical":
+                alerta_erro(f"⛔ {validacao.message}")
+            else:
+                alerta_erro(validacao.message)
             return
+        
+        # Usa valor sanitizado se disponível
+        descricao_limpa = validacao.sanitized_value or descricao
+        
+        get_state_machine().set("descricao_caso", descricao_limpa)
 
-        get_state_machine().set("descricao_caso", descricao)
-
-        resultado = detectar_dominio(descricao)
+        resultado = detectar_dominio(descricao_limpa)
         if resultado:
             dom_id, dom_nome = resultado
             get_state_machine().set("dominio", dom_id)
@@ -164,17 +174,47 @@ def render_coleta():
         st.rerun()
 
     if avancar:
-        # Valida campos obrigatórios
-        faltando = [
-            campos[i]["label"]
-            for i, c in enumerate(campos)
-            if c.get("tipo") != "select" and not valores.get(c["id"], "").strip()
-        ]
-        if faltando:
-            alerta_erro(f"Preencha os campos: {', '.join(faltando)}")
+        # Validação de campos obrigatórios e segurança
+        erros_validacao = []
+        valores_sanitizados = {}
+        
+        for campo in campos:
+            cid = campo["id"]
+            label = campo["label"]
+            valor = valores.get(cid, "")
+            
+            # Campos select já são validados pelo próprio Streamlit
+            if campo.get("tipo") == "select":
+                valores_sanitizados[cid] = valor
+                continue
+            
+            # Valida campos vazios
+            if not valor.strip():
+                erros_validacao.append(label)
+                continue
+            
+            # Validação XSS e tamanho para campos de texto
+            validacao = validate_campo_personalizado(
+                valor=valor,
+                label=label,
+                obrigatorio=True,
+                min_chars=1,
+                max_chars=500,
+                tipo="legal",
+            )
+            
+            if not validacao.is_valid:
+                if validacao.severity.value in ("critical", "error"):
+                    alerta_erro(f"{label}: {validacao.message}")
+                    return
+                
+            valores_sanitizados[cid] = validacao.sanitized_value or valor
+        
+        if erros_validacao:
+            alerta_erro(f"Preencha os campos: {', '.join(erros_validacao)}")
             return
 
-        get_state_machine().set("dados_coletados", valores)
+        get_state_machine().set("dados_coletados", valores_sanitizados)
         get_state_machine().avancar(Etapa.CONTRATO)
         st.rerun()
 
