@@ -4,22 +4,12 @@
 import streamlit as st
 from core.state_machine import Etapa
 from core.router import campos_do_codigo
-from ui.components import cabecalho, barra_progresso, badge_codigo, alerta_erro
+from ui.components import badge_codigo, alerta_erro
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page
 from utils.input_validation import validate_campo_personalizado
 
-st.set_page_config(page_title="Coleta - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
-barra_progresso()
-st.markdown("")
-
-codigo    = get_state_machine().get("codigo_peca")
-cod_nome  = get_state_machine().get("codigo_nome")
-dom_nome  = get_state_machine().get("dominio_nome")
+render_page("Coleta - Agente Juridico IA")
 
 st.subheader("Dados do caso")
 badge_codigo(codigo, cod_nome)

@@ -52,3 +52,14 @@ def apply_theme_css():
         .stMarkdown, .stCaption { color: #cbd5e1 !important; }
         </style>
         """, unsafe_allow_html=True)
+
+
+def render_page(page_title: str = "Agente Juridico IA"):
+    """Empacota layout comum: sidebar, CSS temático, cabeçalho e barra de progresso."""
+    st.set_page_config(page_title=page_title, layout="centered", initial_sidebar_state="collapsed")
+    render_sidebar()
+    apply_theme_css()
+    from ui.components import cabecalho, barra_progresso
+    cabecalho()
+    barra_progresso()
+    st.markdown("")

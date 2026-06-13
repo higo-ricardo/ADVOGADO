@@ -2,15 +2,11 @@
 92_Dashboard.py — Dashboard de metricas e estatisticas.
 """
 import streamlit as st
-from ui.components import cabecalho, card_info
+from ui.components import card_info
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page, ETAPA_PAGE
 
-st.set_page_config(page_title="Dashboard - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
+render_page("Dashboard - Agente Juridico IA")
 
 st.subheader("Dashboard")
 st.caption("Metricas e estatisticas do sistema.")

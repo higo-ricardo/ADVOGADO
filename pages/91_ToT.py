@@ -2,15 +2,10 @@
 91_ToT.py — Tree of Thoughts: exploracao de ramos de raciocinio.
 """
 import streamlit as st
-from ui.components import cabecalho
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page, ETAPA_PAGE
 
-st.set_page_config(page_title="ToT - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
+render_page("ToT - Agente Juridico IA")
 
 st.subheader("Tree of Thoughts")
 st.caption("Exploracao de ramos de raciocinio juridico.")

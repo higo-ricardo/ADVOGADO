@@ -2,15 +2,10 @@
 90_Conhecimento.py — Base de conhecimento e verbetes.
 """
 import streamlit as st
-from ui.components import cabecalho, badge_codigo
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page, ETAPA_PAGE
 
-st.set_page_config(page_title="Conhecimento - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
+render_page("Conhecimento - Agente Juridico IA")
 
 st.subheader("Base de Conhecimento Juridico")
 st.caption("Verbetes de jurisprudencia e materiais de apoio.")

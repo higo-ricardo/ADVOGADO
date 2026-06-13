@@ -3,18 +3,12 @@
 """
 import streamlit as st
 from core.state_machine import Etapa
-from core.router import detectar_dominio, codigos_do_dominio, campos_do_codigo, is_autonomo
-from ui.components import cabecalho, barra_progresso, card_info, badge_codigo, alerta_erro
+from core.router import codigos_do_dominio, is_autonomo
+from ui.components import card_info
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page
 
-st.set_page_config(page_title="Confirmacao - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
-barra_progresso()
-st.markdown("")
+render_page("Confirmacao - Agente Juridico IA")
 
 st.subheader("Confirme o tipo de peca")
 

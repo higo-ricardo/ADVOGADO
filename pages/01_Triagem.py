@@ -4,18 +4,12 @@
 import streamlit as st
 from core.state_machine import Etapa
 from core.router import detectar_dominio
-from ui.components import cabecalho, barra_progresso, alerta_erro
+from ui.components import alerta_erro
 from ui.adapters import get_state_machine
-from ui.layout import render_sidebar, apply_theme_css
+from ui.layout import render_page, ETAPA_PAGE
 from utils.input_validation import validate_description
 
-st.set_page_config(page_title="Triagem - Agente Juridico IA", layout="centered", initial_sidebar_state="collapsed")
-
-render_sidebar()
-apply_theme_css()
-cabecalho()
-barra_progresso()
-st.markdown("")
+render_page("Triagem - Agente Juridico IA")
 
 st.subheader("Descreva o caso")
 st.caption("Escreva livremente. O sistema identificara o tipo de peca adequada.")
