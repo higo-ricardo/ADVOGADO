@@ -1,7 +1,7 @@
 """
 ui — Módulo de interface do usuário do Agente Jurídico IA.
 """
-from ui.themes import COLORS, ETAPA_ICONS, get_css_theme, get_dark_css_theme, get_component_styles
+from ui.themes import COLORS, ETAPA_ICONS, get_component_styles, format_style_dict
 from ui.components import (
     template_uploader,
     estilo_uploader,
@@ -16,9 +16,8 @@ from ui.components import (
 __all__ = [
     "COLORS",
     "ETAPA_ICONS",
-    "get_css_theme",
-    "get_dark_css_theme",
     "get_component_styles",
+    "format_style_dict",
     "template_uploader",
     "estilo_uploader",
     "barra_progresso",
