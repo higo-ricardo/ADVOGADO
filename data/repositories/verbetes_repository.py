@@ -7,11 +7,13 @@ essenciais para o sistema RAG jurídico.
 
 import json
 import sqlite3
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, TYPE_CHECKING
 from datetime import datetime, date
 
-from data.database import db_manager
 from infrastructure.logging_config import get_logger
+
+if TYPE_CHECKING:
+    from src.domain.interfaces import DatabaseProtocol
 
 logger = get_logger(__name__)
 
@@ -66,6 +68,13 @@ class Verbete:
 class VerbetesRepository:
     """Repositório para operações com verbetes do STF e STJ."""
 
+    def __init__(self, db: "DatabaseProtocol | None" = None):
+        if db is not None:
+            self._db = db
+        else:
+            from data.database import db_manager
+            self._db = db_manager
+
     def add_stf_verbete(self, tema: str, resumo: str, 
                         keywords: Optional[List[str]] = None,
                         source_url: Optional[str] = None,
@@ -91,7 +100,7 @@ class VerbetesRepository:
         table_name = 'verbetes_stf' if court == 'STF' else 'verbetes_stj'
         keywords_str = ','.join(keywords) if keywords else None
         
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(f"""
                 INSERT INTO {table_name} (tema, resumo, keywords, source_url, date_decision, full_text)
@@ -107,7 +116,7 @@ class VerbetesRepository:
         """Obtém um verbete pelo ID e corte."""
         table_name = 'verbetes_stf' if court == 'STF' else 'verbetes_stj'
         
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(f"SELECT * FROM {table_name} WHERE id = ?", (verbete_id,))
             row = cursor.fetchone()
@@ -130,7 +139,7 @@ class VerbetesRepository:
         for c in courts_to_search:
             table_name = 'verbetes_stf' if c == 'STF' else 'verbetes_stj'
             
-            with db_manager.get_connection() as conn:
+            with self._db.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(f"""
                     SELECT * FROM {table_name}
@@ -152,7 +161,7 @@ class VerbetesRepository:
         for c in courts_to_search:
             table_name = 'verbetes_stf' if c == 'STF' else 'verbetes_stj'
             
-            with db_manager.get_connection() as conn:
+            with self._db.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(f"""
                     SELECT * FROM {table_name}
@@ -173,7 +182,7 @@ class VerbetesRepository:
         for c in courts_to_search:
             table_name = 'verbetes_stf' if c == 'STF' else 'verbetes_stj'
             
-            with db_manager.get_connection() as conn:
+            with self._db.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(f"""
                     SELECT * FROM {table_name}

@@ -7,11 +7,13 @@ incluindo controle de versionamento.
 
 import json
 import sqlite3
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, TYPE_CHECKING
 from datetime import datetime
 
-from data.database import db_manager
 from infrastructure.logging_config import get_logger
+
+if TYPE_CHECKING:
+    from src.domain.interfaces import DatabaseProtocol
 
 logger = get_logger(__name__)
 
@@ -66,6 +68,13 @@ class Document:
 class DocumentRepository:
     """Repositório para operações com documentos jurídicos."""
 
+    def __init__(self, db: "DatabaseProtocol | None" = None):
+        if db is not None:
+            self._db = db
+        else:
+            from data.database import db_manager
+            self._db = db_manager
+
     def create(self, case_id: int, document_type: str, title: str, 
                content: str, author_ai_model: Optional[str] = None) -> Document:
         """
@@ -76,7 +85,7 @@ class DocumentRepository:
         Returns:
             Document: O objeto Document criado.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             # Marca versões anteriores como não-latest
@@ -113,7 +122,7 @@ class DocumentRepository:
 
     def get_by_id(self, doc_id: int) -> Optional[Document]:
         """Obtém um documento pelo ID."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM documentos WHERE id = ?", (doc_id,))
             row = cursor.fetchone()
@@ -130,7 +139,7 @@ class DocumentRepository:
             document_type: Filtra por tipo específico (opcional).
             latest_only: Se True, retorna apenas a versão mais recente de cada tipo.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             query = "SELECT * FROM documentos WHERE case_id = ?"
@@ -151,7 +160,7 @@ class DocumentRepository:
 
     def get_latest_version(self, case_id: int, document_type: str) -> Optional[Document]:
         """Obtém a versão mais recente de um tipo de documento em um caso."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT * FROM documentos 
@@ -183,7 +192,7 @@ class DocumentRepository:
 
     def delete(self, doc_id: int) -> bool:
         """Exclui um documento específico."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("DELETE FROM documentos WHERE id = ?", (doc_id,))
             
@@ -195,7 +204,7 @@ class DocumentRepository:
     def _log_action(self, case_id: Optional[int], action: str, details: Dict[str, Any]):
         """Registra uma ação nos logs do sistema."""
         try:
-            with db_manager.get_connection() as conn:
+            with self._db.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
                     INSERT INTO system_logs (log_level, message, case_id, action, details)

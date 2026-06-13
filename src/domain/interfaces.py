@@ -7,6 +7,7 @@ permitindo que a camada de aplicação dependa apenas de abstrações.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from contextlib import abstractcontextmanager
 from typing import Any, Generator, Protocol
 
 
@@ -37,6 +38,21 @@ class LLMProviderProtocol(Protocol):
         pass
     
     @abstractmethod
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        """Gera embeddings vetoriais para uma lista de textos."""
+        pass
+    
+    @abstractmethod
+    def count_tokens(self, text: str) -> int:
+        """Conta quantos tokens um texto gera no modelo ativo."""
+        pass
+    
+    @abstractmethod
+    def get_model_info(self) -> dict[str, Any]:
+        """Retorna metadados do modelo (max_tokens, context_window, etc)."""
+        pass
+    
+    @abstractmethod
     def is_available(self) -> bool:
         """Verifica se o provider está disponível."""
         pass
@@ -46,6 +62,19 @@ class LLMProviderProtocol(Protocol):
     def name(self) -> str:
         """Retorna o nome do provider."""
         pass
+
+
+class DatabaseProtocol(Protocol):
+    """Protocolo para acesso a banco de dados."""
+    
+    @abstractcontextmanager
+    def get_connection(self):
+        """Context manager que retorna uma conexão SQLite."""
+        ...
+    
+    def initialize_schema(self) -> None:
+        """Cria as tabelas necessárias se ainda não existirem."""
+        ...
 
 
 class VectorStoreProtocol(Protocol):
@@ -157,6 +186,18 @@ class LLMProviderBase(ABC):
         messages: list[dict[str, str]],
         **kwargs: Any,
     ) -> Generator[str, None, None]:
+        pass
+    
+    @abstractmethod
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        pass
+    
+    @abstractmethod
+    def count_tokens(self, text: str) -> int:
+        pass
+    
+    @abstractmethod
+    def get_model_info(self) -> dict[str, Any]:
         pass
     
     @abstractmethod

@@ -15,7 +15,12 @@ logger = logging.getLogger(__name__)
 
 
 class DatabaseManager:
-    """Gerenciador de conexões e schema do banco de dados SQLite."""
+    """
+    Gerenciador de conexões e schema do banco de dados SQLite.
+    
+    Implementa DatabaseProtocol — pode ser injetado via dependência
+    em repositórios e serviços.
+    """
 
     def __init__(self, db_path: Optional[str] = None):
         """

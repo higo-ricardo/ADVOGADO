@@ -12,14 +12,6 @@ from ui.components import (
     alerta_erro,
     checklist_visual,
 )
-from ui.pages import (
-    render_triagem,
-    render_confirmacao,
-    render_coleta,
-    render_contrato,
-    render_geracao,
-    render_revisao,
-)
 
 __all__ = [
     "COLORS",
@@ -35,10 +27,4 @@ __all__ = [
     "badge_codigo",
     "alerta_erro",
     "checklist_visual",
-    "render_triagem",
-    "render_confirmacao",
-    "render_coleta",
-    "render_contrato",
-    "render_geracao",
-    "render_revisao",
 ]

@@ -35,14 +35,6 @@ from utils.text_normalization import normalize_ascii_safe, normalize_utf8_strict
 # Importa modulos do app
 from core.state_machine import AgentState, Etapa, StateMachine
 from ui.components import cabecalho, barra_progresso, template_uploader, estilo_uploader
-from ui.pages import (
-    render_triagem,
-    render_confirmacao,
-    render_coleta,
-    render_contrato,
-    render_geracao,
-    render_revisao,
-)
 from ui.adapters import get_state_machine, save_state_machine
 
 # CSS base
@@ -128,9 +120,9 @@ st.markdown("")
 # Roteamento por etapa
 etapa = state_machine.etapa_atual
 
-if   etapa == Etapa.TRIAGEM:      render_triagem()
-elif etapa == Etapa.CONFIRMACAO:  render_confirmacao()
-elif etapa == Etapa.COLETA:       render_coleta()
-elif etapa == Etapa.CONTRATO:     render_contrato()
-elif etapa == Etapa.GERACAO:      render_geracao()
-elif etapa == Etapa.REVISAO:      render_revisao()
+if   etapa == Etapa.TRIAGEM:      st.switch_page("pages/01_Triagem.py")
+elif etapa == Etapa.CONFIRMACAO:  st.switch_page("pages/02_Confirmacao.py")
+elif etapa == Etapa.COLETA:       st.switch_page("pages/03_Coleta.py")
+elif etapa == Etapa.CONTRATO:     st.switch_page("pages/04_Briefing.py")
+elif etapa == Etapa.GERACAO:      st.switch_page("pages/05_Geracao.py")
+elif etapa == Etapa.REVISAO:      st.switch_page("pages/06_Revisao.py")

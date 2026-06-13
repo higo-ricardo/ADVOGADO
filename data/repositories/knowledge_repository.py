@@ -8,11 +8,13 @@ e o cache de conhecimento processado para o sistema RAG.
 import json
 import sqlite3
 import hashlib
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, TYPE_CHECKING
 from datetime import datetime
 
-from data.database import db_manager
 from infrastructure.logging_config import get_logger
+
+if TYPE_CHECKING:
+    from src.domain.interfaces import DatabaseProtocol
 
 logger = get_logger(__name__)
 
@@ -105,6 +107,13 @@ class KnowledgeCache:
 class KnowledgeRepository:
     """Repositório para operações com fontes URL e cache de conhecimento."""
 
+    def __init__(self, db: "DatabaseProtocol | None" = None):
+        if db is not None:
+            self._db = db
+        else:
+            from data.database import db_manager
+            self._db = db_manager
+
     # ==================== Fontes URL ====================
 
     def add_fonte_url(self, url: str, title: Optional[str] = None,
@@ -114,7 +123,7 @@ class KnowledgeRepository:
         # Calcula hash do conteúdo para detecção de mudanças
         content_hash = hashlib.sha256((content_summary or '').encode()).hexdigest()
         
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             # Verifica se já existe
@@ -144,7 +153,7 @@ class KnowledgeRepository:
 
     def get_fonte_by_id(self, fonte_id: int) -> Optional[FonteURL]:
         """Obtém uma fonte URL pelo ID."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM fontes_url WHERE id = ?", (fonte_id,))
             row = cursor.fetchone()
@@ -152,7 +161,7 @@ class KnowledgeRepository:
 
     def get_fonte_by_url(self, url: str) -> Optional[FonteURL]:
         """Obtém uma fonte URL pela URL."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM fontes_url WHERE url = ?", (url,))
             row = cursor.fetchone()
@@ -161,7 +170,7 @@ class KnowledgeRepository:
     def get_all_fontes(self, active_only: bool = True, 
                        category: Optional[str] = None) -> List[FonteURL]:
         """Obtém todas as fontes URL."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             query = "SELECT * FROM fontes_url WHERE 1=1"
@@ -181,7 +190,7 @@ class KnowledgeRepository:
 
     def deactivate_fonte(self, fonte_id: int) -> bool:
         """Desativa uma fonte URL."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 UPDATE fontes_url SET is_active = 0 WHERE id = ?
@@ -196,7 +205,7 @@ class KnowledgeRepository:
         """Adiciona um chunk ao cache de conhecimento."""
         metadata_json = json.dumps(metadata) if metadata else None
         
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO knowledge_cache (source_type, source_id, chunk_content, metadata, embedding)
@@ -210,7 +219,7 @@ class KnowledgeRepository:
 
     def get_cache_by_id(self, cache_id: int) -> Optional[KnowledgeCache]:
         """Obtém um item do cache pelo ID."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM knowledge_cache WHERE id = ?", (cache_id,))
             row = cursor.fetchone()
@@ -219,7 +228,7 @@ class KnowledgeRepository:
     def get_cache_by_source(self, source_type: str, 
                             source_id: Optional[int] = None) -> List[KnowledgeCache]:
         """Obtém todos os chunks de cache para uma determinada origem."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             if source_id is not None:
@@ -244,7 +253,7 @@ class KnowledgeRepository:
         Nota: Para busca semântica real, seria necessário implementar busca vetorial.
         Esta é uma busca textual simples.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT * FROM knowledge_cache
@@ -262,7 +271,7 @@ class KnowledgeRepository:
         Limpa o cache para uma determinada origem.
         Returns: Número de registros excluídos.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             if source_id is not None:
@@ -280,7 +289,7 @@ class KnowledgeRepository:
 
     def get_cache_stats(self) -> Dict[str, Any]:
         """Obtém estatísticas do cache de conhecimento."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             stats = {}

@@ -56,6 +56,43 @@ class LLMProvider(ABC):
         pass
     
     @abstractmethod
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        """
+        Gera embeddings vetoriais para uma lista de textos.
+        
+        Args:
+            texts: Lista de textos para gerar embeddings
+        
+        Returns:
+            Lista de vetores (cada vetor é list[float])
+        """
+        pass
+    
+    @abstractmethod
+    def count_tokens(self, text: str) -> int:
+        """
+        Conta quantos tokens um texto gera no modelo ativo.
+        
+        Args:
+            text: Texto para contar tokens
+        
+        Returns:
+            Número estimado de tokens
+        """
+        pass
+    
+    @abstractmethod
+    def get_model_info(self) -> dict[str, Any]:
+        """
+        Retorna metadados do modelo ativo.
+        
+        Returns:
+            Dict com chaves como: max_tokens, context_window,
+            supports_streaming, supports_embeddings, etc.
+        """
+        pass
+    
+    @abstractmethod
     def is_available(self) -> bool:
         """
         Verifica se o provider está disponível e configurado.

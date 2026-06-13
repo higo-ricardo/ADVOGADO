@@ -15,6 +15,48 @@ from services.llm.base import LLMProvider
 from services.llm.rate_limiter import get_rate_limiter, RateLimitConfig
 
 
+# Metadados dos modelos suportados pelo OpenRouter
+MODEL_SPECS: dict[str, dict[str, Any]] = {
+    "openrouter/auto": {
+        "max_tokens": 4096,
+        "context_window": 128000,
+        "supports_streaming": True,
+        "supports_embeddings": False,
+    },
+    "anthropic/claude-3.5-sonnet": {
+        "max_tokens": 8192,
+        "context_window": 200000,
+        "supports_streaming": True,
+        "supports_embeddings": False,
+    },
+    "openai/gpt-4o": {
+        "max_tokens": 4096,
+        "context_window": 128000,
+        "supports_streaming": True,
+        "supports_embeddings": False,
+    },
+    "openai/gpt-4o-mini": {
+        "max_tokens": 4096,
+        "context_window": 128000,
+        "supports_streaming": True,
+        "supports_embeddings": False,
+    },
+    "google/gemini-2.0-flash": {
+        "max_tokens": 8192,
+        "context_window": 1048576,
+        "supports_streaming": True,
+        "supports_embeddings": False,
+    },
+}
+
+DEFAULT_MODEL_SPEC = {
+    "max_tokens": 4096,
+    "context_window": 8192,
+    "supports_streaming": True,
+    "supports_embeddings": False,
+}
+
+
 class OpenRouterProvider(LLMProvider):
     """
     Provedor OpenRouter para chamadas de LLM.
@@ -24,6 +66,8 @@ class OpenRouterProvider(LLMProvider):
     - Fallback automático para modelos alternativos
     - Streaming e non-streaming
     - Rate limiting integrado
+    - Embeddings via modelo dedicado (all-MiniLM-L6-v2 local)
+    - Contagem de tokens via tiktoken
     """
     
     def __init__(self, api_key: str | None = None):
@@ -52,6 +96,9 @@ class OpenRouterProvider(LLMProvider):
         self._model_primary = config.MODEL_PRIMARY
         self._models_fallback = config.MODELS_FALLBACK
         self._max_tokens = config.MAX_TOKENS
+        
+        # Lazy loading do modelo de embeddings local
+        self._embedding_model = None
         
         # Inicializa rate limiter com configuração da aplicação
         self._rate_limiter = get_rate_limiter()
@@ -144,6 +191,71 @@ class OpenRouterProvider(LLMProvider):
                         yield delta.content
         except Exception as exc:
             raise LLMError(f"Erro no streaming: {exc}")
+    
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        """
+        Gera embeddings vetoriais usando modelo local (all-MiniLM-L6-v2).
+        
+        O OpenRouter não expõe endpoint de embeddings, então usamos
+        sentence_transformers local como fallback seguro e rápido.
+        
+        Args:
+            texts: Lista de textos para gerar embeddings
+        
+        Returns:
+            Lista de vetores (cada vetor é list[float])
+        """
+        try:
+            if self._embedding_model is None:
+                from sentence_transformers import SentenceTransformer
+                self._embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+            
+            embeddings = self._embedding_model.encode(texts)
+            return embeddings.tolist()
+        except ImportError:
+            raise LLMError(
+                "sentence_transformers não instalado. "
+                "Execute: pip install sentence-transformers"
+            )
+        except Exception as exc:
+            raise LLMError(f"Erro ao gerar embeddings: {exc}")
+    
+    def count_tokens(self, text: str) -> int:
+        """
+        Conta tokens usando tiktoken (aproximação para o modelo ativo).
+        
+        Args:
+            text: Texto para contar tokens
+        
+        Returns:
+            Número estimado de tokens
+        """
+        try:
+            import tiktoken
+            try:
+                encoding = tiktoken.encoding_for_model(self._model_primary)
+            except KeyError:
+                # Modelo não mapeado — usa encoding padrão GPT-4
+                encoding = tiktoken.get_encoding("cl100k_base")
+            return len(encoding.encode(text))
+        except ImportError:
+            # Fallback grosseiro: ~4 chars por token
+            return len(text) // 4
+    
+    def get_model_info(self) -> dict[str, Any]:
+        """
+        Retorna metadados do modelo primário configurado.
+        
+        Returns:
+            Dict com: max_tokens, context_window, supports_streaming,
+            supports_embeddings, provider, model
+        """
+        spec = MODEL_SPECS.get(self._model_primary, DEFAULT_MODEL_SPEC)
+        return {
+            **spec,
+            "provider": self.name,
+            "model": self._model_primary,
+        }
     
     def get_rate_limit_stats(self) -> dict:
         """

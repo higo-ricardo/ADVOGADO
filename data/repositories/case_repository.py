@@ -6,11 +6,13 @@ Este módulo fornece operações CRUD e consultas específicas para a tabela 'ca
 
 import json
 import sqlite3
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, TYPE_CHECKING
 from datetime import datetime
 
-from data.database import db_manager
 from infrastructure.logging_config import get_logger
+
+if TYPE_CHECKING:
+    from src.domain.interfaces import DatabaseProtocol
 
 logger = get_logger(__name__)
 
@@ -64,6 +66,19 @@ class Case:
 class CaseRepository:
     """Repositório para operações com casos jurídicos."""
 
+    def __init__(self, db: "DatabaseProtocol | None" = None):
+        """
+        Inicializa o repositório.
+        
+        Args:
+            db: Instância de DatabaseProtocol. Se None, usa o singleton global.
+        """
+        if db is not None:
+            self._db = db
+        else:
+            from data.database import db_manager
+            self._db = db_manager
+
     def create(self, client_name: str, case_type: str, 
                description: Optional[str] = None, 
                metadata: Optional[Dict[str, Any]] = None) -> Case:
@@ -73,7 +88,7 @@ class CaseRepository:
         Returns:
             Case: O objeto Case criado com ID preenchido.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             metadata_json = json.dumps(metadata) if metadata else None
             
@@ -92,7 +107,7 @@ class CaseRepository:
 
     def get_by_id(self, case_id: int) -> Optional[Case]:
         """Obtém um caso pelo ID."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM cases WHERE id = ?", (case_id,))
             row = cursor.fetchone()
@@ -103,7 +118,7 @@ class CaseRepository:
         """
         Obtém todos os casos, opcionalmente filtrados por status ou tipo.
         """
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             
             query = "SELECT * FROM cases WHERE 1=1"
@@ -124,7 +139,7 @@ class CaseRepository:
 
     def update_status(self, case_id: int, new_status: str) -> bool:
         """Atualiza o status de um caso."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 UPDATE cases 
@@ -139,7 +154,7 @@ class CaseRepository:
 
     def update_metadata(self, case_id: int, metadata: Dict[str, Any]) -> bool:
         """Atualiza os metadados de um caso."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             metadata_json = json.dumps(metadata)
             
@@ -153,7 +168,7 @@ class CaseRepository:
 
     def delete(self, case_id: int) -> bool:
         """Exclui um caso (e seus estados/documentos relacionados via CASCADE)."""
-        with db_manager.get_connection() as conn:
+        with self._db.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("DELETE FROM cases WHERE id = ?", (case_id,))
             
@@ -165,7 +180,7 @@ class CaseRepository:
     def _log_action(self, case_id: int, action: str, details: Dict[str, Any]):
         """Registra uma ação nos logs do sistema."""
         try:
-            with db_manager.get_connection() as conn:
+            with self._db.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
                     INSERT INTO system_logs (log_level, message, case_id, action, details)
